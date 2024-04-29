@@ -22,7 +22,7 @@ export const LoadingComponent = ({ isLoading }: { isLoading: boolean }) => {
             borderRadius: 10,
           }}
         >
-          <ActivityIndicator color={colors.textGreen} size="large" />
+          <ActivityIndicator color={colors.green} size="large" />
         </View>
       </Modal>
     </View>

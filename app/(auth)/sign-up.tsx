@@ -27,6 +27,9 @@ import { BoldHeader } from '@/components/ui/BoldHeader';
 import { TextInput } from '@/components/ui/TextInput';
 import { colors } from '@/constants';
 import { MyButton } from '@/components/ui/MyButton';
+import { useStates } from '@/lib/tanstack/queries';
+import { ErrorComponent } from '@/components/ui/Error';
+import { Loading } from '@/components/ui/Loading';
 
 type Props = {};
 
@@ -51,14 +54,15 @@ const validationSchema = yup.object().shape({
     .required('Confirm Password is required'),
   phoneNumber: yup.string().required('Phone number is required'),
   address: yup.string().required('Address is required'),
-  gender: yup.string().required('State is required'),
   dateOfBirth: yup.string().required('Date of birth is required'),
+  areaid: yup.string().required('Area is required'),
+  state: yup.string().required('State is required'),
 });
 const signUp = (props: Props) => {
   const router = useRouter();
   const [date, setDate] = useState(new Date(defaultDateOfBirth));
   const [showModal, setShowModal] = useState(false);
-
+  const { data, isPending, isError, refetch, isPaused } = useStates();
   const [show, setShow] = useState(false);
   const {
     handleChange,
@@ -78,8 +82,9 @@ const signUp = (props: Props) => {
       confirmPassword: '',
       phoneNumber: '',
       address: '',
-      gender: '',
       dateOfBirth: format(defaultDateOfBirth, 'MM/dd/yyyy'),
+      state: 'Abuja',
+      areaid: '1',
     },
     validationSchema,
     onSubmit: async (values) => {
@@ -88,35 +93,54 @@ const signUp = (props: Props) => {
         dateOfBirth,
         email,
         firstName,
-        gender,
         lastName,
         password,
         phoneNumber,
+        state,
+        areaid,
       } = values;
 
-      const fullName = `${firstName} ${lastName}`;
       const formattedPassword = password
         .replace(/[#?\/\\%&]/g, '')
         .replace(/:/g, '');
       try {
         const { data } = await axios.post(
-          `${api}?api=createaccount&patientemail=${email}&patientgender=${gender}&patientfname=${gender}&patientdob=${dateOfBirth}&patientphone=${phoneNumber}&patientadres=${address}&pasword1=${formattedPassword}&patientlname=${fullName}`
+          `http://247laboratory.net/branches/createpatientaccount`,
+          {
+            fname: firstName,
+            lname: lastName,
+            email: email,
+            phone: phoneNumber,
+            streetaddress: address,
+            password: formattedPassword,
+            dob: dateOfBirth,
+            statename: state,
+            areaid: areaid,
+          }
         );
+        console.log(data, 'data');
 
-        if (data === 'Success') {
+        if (data?.uniqueid) {
           setShowModal(true);
           return;
         }
 
-        if (data === 'Email Already Exist') {
+        if (data === 'email already exists data') {
           Toast.show({
             type: 'transparentToast',
-            text1: 'Error',
-            text2: 'Email already exist',
+            text1: 'Email already exist',
+            text2: 'Please use another email address',
             position: 'top',
           });
           return;
         }
+
+        Toast.show({
+          type: 'error',
+          text1: 'Error',
+          text2: 'Something went wrong. Please try again',
+          position: 'top',
+        });
       } catch (error) {
         console.log(error);
         Toast.show({
@@ -128,9 +152,15 @@ const signUp = (props: Props) => {
       }
     },
   });
-  // const toggleDatePicker = () => {
-  //   setShow((prev) => !prev);
-  // };
+
+  if (isError || isPaused) {
+    return <ErrorComponent refetch={refetch} />;
+  }
+
+  if (isPending) {
+    return <Loading />;
+  }
+
   const onChange = ({ type }: any, selectedDate: any) => {
     if (type === 'set') {
       const currentDate = selectedDate;
@@ -148,7 +178,7 @@ const signUp = (props: Props) => {
   //   setValues({ ...values, dateOfBirth: format(date, 'yyyy-MM-dd') });
   // };
   const onPress = () => {
-    router.replace('/');
+    router.replace('/onboard');
     setShowModal(false);
     resetForm();
   };
@@ -158,11 +188,14 @@ const signUp = (props: Props) => {
     dateOfBirth,
     email,
     firstName,
-    gender,
+
     lastName,
     password,
     phoneNumber,
+    areaid,
+    state,
   } = values;
+  console.log(errors);
 
   return (
     <Container>
@@ -231,6 +264,7 @@ const signUp = (props: Props) => {
               </Text>
             )}
           </>
+
           <>
             <SelectList
               search={false}
@@ -245,22 +279,19 @@ const signUp = (props: Props) => {
                 color: 'black',
               }}
               fontFamily="Poppins"
-              setSelected={handleChange('gender')}
-              data={[
-                { key: 'male', value: 'Male' },
-                { key: 'female', value: 'Female' },
-              ]}
+              setSelected={handleChange('state')}
+              data={data}
               defaultOption={{
-                key: 'male',
-                value: 'Male',
+                key: 'Abuja',
+                value: 'Abuja',
               }}
               save="key"
-              placeholder="Gender"
+              placeholder="State"
             />
 
-            {touched.gender && errors.gender && (
+            {touched.state && errors.state && (
               <Text style={{ color: 'red', fontWeight: 'bold' }}>
-                {errors.gender}
+                {errors.state}
               </Text>
             )}
           </>

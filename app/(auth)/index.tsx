@@ -18,11 +18,8 @@ import { useAuth } from '@/lib/zustand/auth';
 import { colors } from '@/constants';
 type Props = {};
 const validationSchema = yup.object().shape({
-  email: yup.string().email('Invalid email').required('Email is required'),
-  password: yup
-    .string()
-    .min(5, 'Password must be at least 5 characters')
-    .required('Password is required'),
+  username: yup.string().required('Full name is required'),
+  password: yup.string().required('Password is required'),
 });
 const Login = (props: Props) => {
   const router = useRouter();
@@ -34,47 +31,43 @@ const Login = (props: Props) => {
     touched,
     errors,
     values,
-
     resetForm,
     isSubmitting,
   } = useFormik({
     initialValues: {
-      email: '',
+      username: '',
       password: '',
     },
     validationSchema,
     onSubmit: async (values) => {
+      console.log('🚀 ~ onSubmit: ~ values:', values);
       const formattedPassword = values.password
         .replace(/[#?\/\\%&]/g, '')
         .replace(/:/g, '');
       try {
         const { data } = await axios.post(
-          `${api}?api=signin&patientemail=${values.email}&pasword1=${formattedPassword}`
+          `http://247laboratory.net/branches/signin`,
+          {
+            username: values.username,
+            password: formattedPassword,
+          }
         );
-        console.log(data);
-        if (data === 'incorrect credentials') {
+        console.log(data.error, 'sent data');
+
+        if (data.error === 'invalid login codes') {
           Toast.show({
             type: 'transparentToast',
             text1: 'Please try again',
             text2: 'Incorrect credentials',
             position: 'top',
           });
+          return;
+        }
 
-          return;
-        }
-        if (data === "{'result' : 'failed'}") {
-          Toast.show({
-            type: 'transparentToast',
-            text1: 'Please try again',
-            text2: 'Something went wrong',
-            position: 'top',
-          });
-          return;
-        }
-        setId(data);
-        router.push('/home');
+        // setId(data);
+        // router.push('/home');
       } catch (error) {
-        console.log(error);
+        console.log(error, 'error from form');
         Toast.show({
           type: 'transparentToast',
           text1: 'Please try again',
@@ -88,7 +81,10 @@ const Login = (props: Props) => {
     router.push('/sign-up');
   };
 
-  const { email, password } = values;
+  const { username, password } = values;
+  console.log('🚀 ~ Login ~ username:', username, password);
+  console.log(errors);
+
   return (
     <>
       <LoadingComponent isLoading={isSubmitting} />
@@ -108,13 +104,13 @@ const Login = (props: Props) => {
           <VStack mt={40} gap={25}>
             <>
               <TextInput
-                value={email}
-                placeholder="Email"
-                onChangeText={handleChange('email')}
+                value={username}
+                placeholder="Full name"
+                onChangeText={handleChange('username')}
               />
 
-              {errors.email && touched.email && (
-                <Text style={{ color: 'red' }}>{errors.email}</Text>
+              {errors.username && touched.username && (
+                <Text style={{ color: 'red' }}>{errors.username}</Text>
               )}
             </>
 

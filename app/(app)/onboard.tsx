@@ -50,7 +50,7 @@ const Onboard = () => {
     if (currentIndex < onBoardData.length - 1) {
       setCurrentIndex((prev) => prev + 1);
     } else {
-      router.replace('/');
+      router.replace('/home');
     }
   };
 
@@ -98,7 +98,7 @@ const Onboard = () => {
           ))}
         </HStack>
         <HStack justifyContent="space-between" alignItems="center">
-          <Link href={'/'} replace style={styles.skip}>
+          <Link href={'/home'} replace style={styles.skip}>
             Skip
           </Link>
 

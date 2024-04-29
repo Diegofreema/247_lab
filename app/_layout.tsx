@@ -6,8 +6,8 @@ import {
 } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
-import { useEffect, useLayoutEffect, useState } from 'react';
-import { GluestackUIProvider, Text, Box, View } from '@gluestack-ui/themed';
+import { useEffect } from 'react';
+import { GluestackUIProvider, Text, View } from '@gluestack-ui/themed';
 import { config } from '@gluestack-ui/config';
 import { useColorScheme } from '@/components/useColorScheme';
 import { Slot } from 'expo-router';
@@ -19,6 +19,7 @@ import Toast, {
 } from 'react-native-toast-message';
 import { colors } from '@/constants';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 export {
   // Catch any errors thrown by the Layout component.
   ErrorBoundary,
@@ -81,7 +82,6 @@ export default function RootLayout() {
     ...FontAwesome.font,
   });
 
-  const [styleLoaded, setStyleLoaded] = useState(false);
   // Expo Router uses Error Boundaries to catch errors in the navigation tree.
   useEffect(() => {
     if (error) throw error;
@@ -93,29 +93,27 @@ export default function RootLayout() {
     }
   }, [loaded]);
 
-  // useLayoutEffect(() => {
-  //   setStyleLoaded(true);
-  // }, [styleLoaded]);
-
-  // if (!loaded || !styleLoaded) {
-  //   return null;
-  // }
+  if (!loaded) {
+    return null;
+  }
 
   return <RootLayoutNav />;
 }
 
 function RootLayoutNav() {
   const colorScheme = useColorScheme();
-
+  const queryClient = new QueryClient();
   return (
     <GluestackUIProvider config={config}>
       <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-        <GestureHandlerRootView style={{ flex: 1 }}>
-          <SafeAreaView style={{ flex: 1 }}>
-            <Slot />
-          </SafeAreaView>
-          <Toast config={toastConfig} />
-        </GestureHandlerRootView>
+        <QueryClientProvider client={queryClient}>
+          <GestureHandlerRootView style={{ flex: 1 }}>
+            <SafeAreaView style={{ flex: 1 }}>
+              <Slot initialRouteName="(app)" />
+            </SafeAreaView>
+            <Toast config={toastConfig} />
+          </GestureHandlerRootView>
+        </QueryClientProvider>
       </ThemeProvider>
     </GluestackUIProvider>
   );

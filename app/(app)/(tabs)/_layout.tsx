@@ -1,7 +1,7 @@
 import React from 'react';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { Tabs } from 'expo-router';
-import { useClientOnlyValue } from '@/components/useClientOnlyValue';
+
 import { StatusBar } from 'expo-status-bar';
 
 function TabBarIcon(props: {
@@ -17,9 +17,7 @@ export default function TabLayout() {
       <StatusBar style="dark" />
       <Tabs
         screenOptions={{
-          // Disable the static render of the header on web
-          // to prevent a hydration error in React Navigation v6.
-          headerShown: useClientOnlyValue(false, true),
+          headerShown: false,
         }}
       >
         <Tabs.Screen
