@@ -6,13 +6,6 @@ import { StatusBar } from 'expo-status-bar';
 type Props = {};
 
 const Layout = (props: Props) => {
-  const { id, getId } = useAuth();
-  useEffect(() => {
-    getId();
-  }, []);
-  if (!id) {
-    return <Redirect href="/" />;
-  }
   return (
     <>
       <StatusBar style="dark" />

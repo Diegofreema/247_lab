@@ -8,12 +8,12 @@ import { NavHeader } from '@/components/ui/NavHeader';
 type Props = {};
 
 const AuthLayout = (props: Props) => {
-  const { id, getId } = useAuth();
-  console.log('🚀 ~ AuthLayout ~ id:', id);
+  const { user, getUser } = useAuth();
+  console.log('🚀 ~ AuthLayout ~ id:', user);
   useEffect(() => {
-    getId();
+    getUser();
   }, []);
-  if (id) {
+  if (user?.uniqueid) {
     return <Redirect href="/home" />;
   }
 

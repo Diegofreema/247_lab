@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { Tabs } from 'expo-router';
+import { Redirect, Tabs } from 'expo-router';
 
 import { StatusBar } from 'expo-status-bar';
+import { useAuth } from '@/lib/zustand/auth';
 
 function TabBarIcon(props: {
   name: React.ComponentProps<typeof FontAwesome>['name'];
@@ -12,6 +13,13 @@ function TabBarIcon(props: {
 }
 
 export default function TabLayout() {
+  const { user, getUser } = useAuth();
+  useEffect(() => {
+    getUser();
+  }, []);
+  if (!user?.uniqueid) {
+    return <Redirect href="/" />;
+  }
   return (
     <>
       <StatusBar style="dark" />

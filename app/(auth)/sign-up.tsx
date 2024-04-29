@@ -30,6 +30,7 @@ import { MyButton } from '@/components/ui/MyButton';
 import { useStates } from '@/lib/tanstack/queries';
 import { ErrorComponent } from '@/components/ui/Error';
 import { Loading } from '@/components/ui/Loading';
+import { useAuth } from '@/lib/zustand/auth';
 
 type Props = {};
 
@@ -64,6 +65,7 @@ const signUp = (props: Props) => {
   const [showModal, setShowModal] = useState(false);
   const { data, isPending, isError, refetch, isPaused } = useStates();
   const [show, setShow] = useState(false);
+  const { setUser } = useAuth();
   const {
     handleChange,
     handleSubmit,
@@ -122,6 +124,12 @@ const signUp = (props: Props) => {
 
         if (data?.uniqueid) {
           setShowModal(true);
+          Toast.show({
+            type: 'transparentToast',
+            text1: 'Account has been created',
+            text2: 'Welcome to 247lab, Please sign in',
+            position: 'top',
+          });
           return;
         }
 

@@ -24,7 +24,7 @@ const validationSchema = yup.object().shape({
 const Login = (props: Props) => {
   const router = useRouter();
   const [secured, setSecured] = useState(true);
-  const { setId } = useAuth();
+  const { setUser } = useAuth();
   const {
     handleChange,
     handleSubmit,
@@ -64,8 +64,8 @@ const Login = (props: Props) => {
           return;
         }
 
-        // setId(data);
-        // router.push('/home');
+        setUser(data);
+        router.push('/home');
       } catch (error) {
         console.log(error, 'error from form');
         Toast.show({
