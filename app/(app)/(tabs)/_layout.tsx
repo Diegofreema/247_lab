@@ -2,6 +2,7 @@ import React from 'react';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { Tabs } from 'expo-router';
 import { useClientOnlyValue } from '@/components/useClientOnlyValue';
+import { StatusBar } from 'expo-status-bar';
 
 function TabBarIcon(props: {
   name: React.ComponentProps<typeof FontAwesome>['name'];
@@ -12,37 +13,40 @@ function TabBarIcon(props: {
 
 export default function TabLayout() {
   return (
-    <Tabs
-      screenOptions={{
-        // Disable the static render of the header on web
-        // to prevent a hydration error in React Navigation v6.
-        headerShown: useClientOnlyValue(false, true),
-      }}
-    >
-      <Tabs.Screen
-        name="home"
-        options={{
-          title: 'Home',
-          tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
+    <>
+      <StatusBar style="dark" />
+      <Tabs
+        screenOptions={{
+          // Disable the static render of the header on web
+          // to prevent a hydration error in React Navigation v6.
+          headerShown: useClientOnlyValue(false, true),
         }}
-      />
+      >
+        <Tabs.Screen
+          name="home"
+          options={{
+            title: 'Home',
+            tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
+          }}
+        />
 
-      <Tabs.Screen
-        name="sessions"
-        options={{
-          title: 'Sessions',
-          tabBarIcon: ({ color }) => <TabBarIcon name="book" color={color} />,
-        }}
-      />
-      <Tabs.Screen
-        name="history"
-        options={{
-          title: 'History',
-          tabBarIcon: ({ color }) => (
-            <TabBarIcon name="dropbox" color={color} />
-          ),
-        }}
-      />
-    </Tabs>
+        <Tabs.Screen
+          name="sessions"
+          options={{
+            title: 'Sessions',
+            tabBarIcon: ({ color }) => <TabBarIcon name="book" color={color} />,
+          }}
+        />
+        <Tabs.Screen
+          name="history"
+          options={{
+            title: 'History',
+            tabBarIcon: ({ color }) => (
+              <TabBarIcon name="dropbox" color={color} />
+            ),
+          }}
+        />
+      </Tabs>
+    </>
   );
 }

@@ -13,6 +13,7 @@ import {
 import { Container } from '@/components/ui/Container';
 import { Image } from '@gluestack-ui/themed';
 import { colors } from '@/constants';
+import { MyText } from '@/components/ui/MyText';
 const onBoardData = [
   {
     heading: 'Welcome to 247Lab',
@@ -81,35 +82,39 @@ const Onboard = () => {
             </View>
           </View>
         </Animated.View>
+        <HStack gap={5} justifyContent="center" mb={15} mt={-10}>
+          {onBoardData.map((_, index) => (
+            <View
+              key={index}
+              style={{
+                width: 70,
+
+                height: 5,
+                borderRadius: 2,
+                backgroundColor:
+                  index === currentIndex ? colors.green : colors.darkGrey,
+              }}
+            />
+          ))}
+        </HStack>
         <HStack justifyContent="space-between" alignItems="center">
           <Link href={'/'} replace style={styles.skip}>
             Skip
           </Link>
-          <HStack gap={5}>
-            {onBoardData.map((_, index) => (
-              <View
-                key={index}
-                style={{
-                  width: index === currentIndex ? 20 : 10,
-
-                  height: 8,
-                  borderRadius: 10,
-                  backgroundColor:
-                    index === currentIndex ? colors.green : colors.milk,
-                }}
-              />
-            ))}
-          </HStack>
 
           <Button
             style={{
               backgroundColor: colors.green,
-              borderRadius: 999,
-              height: 60,
-              width: 60,
+              borderRadius: 5,
+              height: 50,
+              width: 200,
             }}
             onPress={onNext}
           >
+            <MyText
+              text="Next"
+              style={{ color: 'white', fontFamily: 'Poppins', fontSize: 15 }}
+            />
             <AntDesign name="arrowright" size={20} color="white" />
           </Button>
         </HStack>

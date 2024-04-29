@@ -21,7 +21,7 @@ export const BoldHeader = ({ text, subText, style }: Props): JSX.Element => {
             {
               fontFamily: 'Poppins',
               fontSize: 12,
-              color: colors.milk,
+              color: colors.grey,
             },
             style,
           ]}

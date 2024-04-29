@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import { Redirect, Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { useAuth } from '@/lib/zustand/auth';
+import { NavHeader } from '@/components/ui/NavHeader';
 
 type Props = {};
 
@@ -12,13 +13,14 @@ const AuthLayout = (props: Props) => {
   useEffect(() => {
     getId();
   }, []);
-  //   if (id) {
-  //     return <Redirect href="" />;
-  //   }
+  if (id) {
+    return <Redirect href="/home" />;
+  }
 
   return (
     <>
       <StatusBar style="dark" />
+
       <Stack screenOptions={{ headerShown: false }} />
     </>
   );

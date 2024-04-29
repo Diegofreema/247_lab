@@ -135,7 +135,7 @@ const Login = (props: Props) => {
             </>
 
             <Pressable
-              onPress={() => router.push('/')}
+              onPress={() => router.push('/forgot')}
               style={({ pressed }) => [
                 styles.textContainer,
                 { opacity: pressed ? 0.5 : 1 },

@@ -18,6 +18,7 @@ import Toast, {
   ToastConfigParams,
 } from 'react-native-toast-message';
 import { colors } from '@/constants';
+import { SafeAreaView } from 'react-native-safe-area-context';
 export {
   // Catch any errors thrown by the Layout component.
   ErrorBoundary,
@@ -110,7 +111,9 @@ function RootLayoutNav() {
     <GluestackUIProvider config={config}>
       <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
         <GestureHandlerRootView style={{ flex: 1 }}>
-          <Slot />
+          <SafeAreaView style={{ flex: 1 }}>
+            <Slot />
+          </SafeAreaView>
           <Toast config={toastConfig} />
         </GestureHandlerRootView>
       </ThemeProvider>

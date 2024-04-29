@@ -77,7 +77,7 @@ const signUp = (props: Props) => {
       password: '',
       confirmPassword: '',
       phoneNumber: '',
-      address: 'Male',
+      address: '',
       gender: '',
       dateOfBirth: format(defaultDateOfBirth, 'MM/dd/yyyy'),
     },
@@ -242,7 +242,7 @@ const signUp = (props: Props) => {
               }}
               inputStyles={{
                 textAlign: 'left',
-                color: colors.milk,
+                color: 'black',
               }}
               fontFamily="Poppins"
               setSelected={handleChange('gender')}

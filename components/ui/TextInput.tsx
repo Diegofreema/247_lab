@@ -31,7 +31,7 @@ export const TextInput = (props: Props): JSX.Element => {
       <TextInputComponent
         {...props}
         style={{ fontFamily: 'Poppins', color: 'black', flex: 1 }}
-        placeholderTextColor={colors.milk}
+        placeholderTextColor={'black'}
       />
       {password && (
         <Ionicons
