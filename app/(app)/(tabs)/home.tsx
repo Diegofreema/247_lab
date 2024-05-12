@@ -1,24 +1,39 @@
-import { View, Text } from 'react-native';
-import React from 'react';
-import { Button } from '@gluestack-ui/themed';
+import React, { useMemo } from 'react';
 import { useAuth } from '@/lib/zustand/auth';
-import { router } from 'expo-router';
+import { Container } from '@/components/ui/Container';
+import { ProfileHeader } from '@/components/ui/home/ProfileHeader';
+import { Loading } from '@/components/ui/Loading';
+import { Banner } from '@/components/ui/home/Banner';
+import { TestCat, TestSkeleton } from '@/components/ui/home/TestCat';
+import { useGetServices, useProfile } from '@/lib/tanstack/queries';
+import { ErrorComponent } from '@/components/ui/Error';
 
 type Props = {};
 
 const home = (props: Props) => {
   const { clearUser } = useAuth();
-  const logOut = () => {
-    clearUser();
-    router.replace('/');
-  };
+
+  const { data, isError, isPaused, refetch, isPending } = useProfile();
+
+  // const cats = useMemo(() => {
+  //   const cts = data?.map((item) => item.categoryname);
+  //   return [...new Set(cts)];
+  // }, [data]);
+
+  if (isError || isPaused) {
+    return <ErrorComponent refetch={refetch} />;
+  }
+
+  if (isPending) {
+    return <Loading />;
+  }
+
   return (
-    <View>
-      <Button onPress={logOut}>
-        <Text>Log out</Text>
-      </Button>
-      <Text>home</Text>
-    </View>
+    <Container>
+      <ProfileHeader user={data} />
+      <Banner />
+      {/* {isPending ? <TestSkeleton /> : <TestCat cats={cats} />} */}
+    </Container>
   );
 };
 

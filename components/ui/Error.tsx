@@ -35,9 +35,12 @@ export const ErrorComponent = ({ refetch }: Props): JSX.Element => {
           justifyContent: 'center',
           backgroundColor: 'transparent',
           width: '100%',
+          gap: 10,
         }}
       >
-        <Text style={{ color: 'black', fontSize: 20, fontWeight: 'bold' }}>
+        <Text
+          style={{ color: 'black', fontSize: 20, fontFamily: 'PoppinsBold' }}
+        >
           Something went wrong
         </Text>
         <View style={{ backgroundColor: 'white', width: '60%' }}>

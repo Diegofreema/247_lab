@@ -18,7 +18,7 @@ import { useAuth } from '@/lib/zustand/auth';
 import { colors } from '@/constants';
 type Props = {};
 const validationSchema = yup.object().shape({
-  username: yup.string().required('Full name is required'),
+  email: yup.string().required('Full name is required'),
   password: yup.string().required('Password is required'),
 });
 const Login = (props: Props) => {
@@ -35,7 +35,7 @@ const Login = (props: Props) => {
     isSubmitting,
   } = useFormik({
     initialValues: {
-      username: '',
+      email: '',
       password: '',
     },
     validationSchema,
@@ -45,16 +45,12 @@ const Login = (props: Props) => {
         .replace(/[#?\/\\%&]/g, '')
         .replace(/:/g, '');
       try {
-        const { data } = await axios.post(
-          `http://247laboratory.net/branches/signin`,
-          {
-            username: values.username,
-            password: formattedPassword,
-          }
+        const { data } = await axios.get(
+          `${api}api=patientlogin&email=${values.email}&pasword=${formattedPassword}`
         );
-        console.log(data.error, 'sent data');
+        console.log(data, 'sent data');
 
-        if (data.error === 'invalid login codes') {
+        if (data.result === 'incorrect email or password') {
           Toast.show({
             type: 'transparentToast',
             text1: 'Please try again',
@@ -64,8 +60,16 @@ const Login = (props: Props) => {
           return;
         }
 
-        setUser(data);
-        router.push('/home');
+        if (data?.patientid) {
+          setUser(data?.patientid);
+          Toast.show({
+            type: 'transparentToast',
+            text1: 'Login Successful',
+            text2: `Welcome back`,
+            position: 'top',
+          });
+          router.push('/home');
+        }
       } catch (error) {
         console.log(error, 'error from form');
         Toast.show({
@@ -81,8 +85,8 @@ const Login = (props: Props) => {
     router.push('/sign-up');
   };
 
-  const { username, password } = values;
-  console.log('🚀 ~ Login ~ username:', username, password);
+  const { email, password } = values;
+  console.log('🚀 ~ Login ~ email:', email, password);
   console.log(errors);
 
   return (
@@ -104,13 +108,15 @@ const Login = (props: Props) => {
           <VStack mt={40} gap={25}>
             <>
               <TextInput
-                value={username}
-                placeholder="Full name"
-                onChangeText={handleChange('username')}
+                keyboardType="email-address"
+                value={email}
+                placeholder="Email"
+                onChangeText={handleChange('email')}
+                autoCapitalize="none"
               />
 
-              {errors.username && touched.username && (
-                <Text style={{ color: 'red' }}>{errors.username}</Text>
+              {errors.email && touched.email && (
+                <Text style={{ color: 'red' }}>{errors.email}</Text>
               )}
             </>
 

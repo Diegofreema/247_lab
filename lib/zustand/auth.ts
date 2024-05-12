@@ -3,25 +3,29 @@ import * as SecureStore from 'expo-secure-store';
 import { UserType } from '../@types';
 
 type Props = {
-  user?: UserType | null;
+  id?: string;
   getUser: () => void;
-  setUser: (user: UserType) => void;
+  setUser: (id: string) => void;
   clearUser: () => void;
 };
-const user = JSON.parse(SecureStore.getItem('user') || '{}');
+const id = SecureStore.getItem('id') || '';
 export const useAuth = create<Props>((set) => ({
-  user: user || null,
+  id,
   getUser: () => {
-    const user = JSON.parse(SecureStore.getItem('user') || '{}');
-    if (user) set({ user });
+    const storedId = SecureStore.getItem('id');
+
+    if (storedId) {
+      set({ id: storedId });
+    } else {
+      set({ id: '' });
+    }
   },
-  setUser: (user: UserType) => {
-    set({ user });
-    const stringifyUser = JSON.stringify(user);
-    SecureStore.setItem('user', stringifyUser);
+  setUser: (id: string) => {
+    set({ id });
+    SecureStore.setItem('id', id);
   },
   clearUser: async () => {
-    set({ user: null });
-    await SecureStore.deleteItemAsync('user');
+    set({ id: '' });
+    await SecureStore.deleteItemAsync('id');
   },
 }));

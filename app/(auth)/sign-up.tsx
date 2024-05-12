@@ -11,11 +11,11 @@ import { useFormik } from 'formik';
 import { SelectList } from 'react-native-dropdown-select-list';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
-import { VStack } from '@gluestack-ui/themed';
+import { Box, VStack } from '@gluestack-ui/themed';
 
 import { useRouter } from 'expo-router';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { format } from 'date-fns';
 import axios from 'axios';
 import Toast from 'react-native-toast-message';
@@ -27,10 +27,13 @@ import { BoldHeader } from '@/components/ui/BoldHeader';
 import { TextInput } from '@/components/ui/TextInput';
 import { colors } from '@/constants';
 import { MyButton } from '@/components/ui/MyButton';
-import { useStates } from '@/lib/tanstack/queries';
+import { useCommunity, useStates } from '@/lib/tanstack/queries';
 import { ErrorComponent } from '@/components/ui/Error';
 import { Loading } from '@/components/ui/Loading';
 import { useAuth } from '@/lib/zustand/auth';
+import { StateType } from '@/lib/@types';
+import { ActivityIndicator } from 'react-native-paper';
+import { useCommunities } from '@/hooks/useCommunities';
 
 type Props = {};
 
@@ -56,7 +59,7 @@ const validationSchema = yup.object().shape({
   phoneNumber: yup.string().required('Phone number is required'),
   address: yup.string().required('Address is required'),
   dateOfBirth: yup.string().required('Date of birth is required'),
-  areaid: yup.string().required('Area is required'),
+  community: yup.string().required('Community is required'),
   state: yup.string().required('State is required'),
 });
 const signUp = (props: Props) => {
@@ -64,8 +67,9 @@ const signUp = (props: Props) => {
   const [date, setDate] = useState(new Date(defaultDateOfBirth));
   const [showModal, setShowModal] = useState(false);
   const { data, isPending, isError, refetch, isPaused } = useStates();
+
   const [show, setShow] = useState(false);
-  const { setUser } = useAuth();
+
   const {
     handleChange,
     handleSubmit,
@@ -84,9 +88,9 @@ const signUp = (props: Props) => {
       confirmPassword: '',
       phoneNumber: '',
       address: '',
-      dateOfBirth: format(defaultDateOfBirth, 'MM/dd/yyyy'),
+      dateOfBirth: format(defaultDateOfBirth, 'yyyy-mm-dd'),
       state: 'Abuja',
-      areaid: '1',
+      community: '',
     },
     validationSchema,
     onSubmit: async (values) => {
@@ -99,7 +103,7 @@ const signUp = (props: Props) => {
         password,
         phoneNumber,
         state,
-        areaid,
+        community,
       } = values;
 
       const formattedPassword = password
@@ -107,22 +111,11 @@ const signUp = (props: Props) => {
         .replace(/:/g, '');
       try {
         const { data } = await axios.post(
-          `http://247laboratory.net/branches/createpatientaccount`,
-          {
-            fname: firstName,
-            lname: lastName,
-            email: email,
-            phone: phoneNumber,
-            streetaddress: address,
-            password: formattedPassword,
-            dob: dateOfBirth,
-            statename: state,
-            areaid: areaid,
-          }
+          `${api}api=registerpatient&email=${email}&fname=${firstName}&lname=${lastName}&phone=${phoneNumber}dob=${dateOfBirth}8&statename=${state}&communityname=${community}&address=${address}&pasword=${formattedPassword}`
         );
-        console.log(data, 'data');
+        console.log(data, 'sent data');
 
-        if (data?.uniqueid) {
+        if (data?.patientid) {
           setShowModal(true);
           Toast.show({
             type: 'transparentToast',
@@ -133,7 +126,7 @@ const signUp = (props: Props) => {
           return;
         }
 
-        if (data === 'email already exists data') {
+        if (data?.result === 'Email Already Exist') {
           Toast.show({
             type: 'transparentToast',
             text1: 'Email already exist',
@@ -160,9 +153,26 @@ const signUp = (props: Props) => {
       }
     },
   });
+  const {
+    address,
+    confirmPassword,
+    dateOfBirth,
+    email,
+    firstName,
 
+    lastName,
+    password,
+    phoneNumber,
+    community,
+    state,
+  } = values;
+
+  const { communities, fetching } = useCommunities(state);
+  const handleRefetch = () => {
+    refetch();
+  };
   if (isError || isPaused) {
-    return <ErrorComponent refetch={refetch} />;
+    return <ErrorComponent refetch={handleRefetch} />;
   }
 
   if (isPending) {
@@ -174,7 +184,7 @@ const signUp = (props: Props) => {
       const currentDate = selectedDate;
       setShow(false);
       setDate(currentDate);
-      setValues({ ...values, dateOfBirth: format(currentDate, 'MM/dd/yyyy') });
+      setValues({ ...values, dateOfBirth: format(currentDate, 'yyyy-mm-dd') });
     }
   };
 
@@ -190,19 +200,7 @@ const signUp = (props: Props) => {
     setShowModal(false);
     resetForm();
   };
-  const {
-    address,
-    confirmPassword,
-    dateOfBirth,
-    email,
-    firstName,
 
-    lastName,
-    password,
-    phoneNumber,
-    areaid,
-    state,
-  } = values;
   console.log(errors);
 
   return (
@@ -252,6 +250,7 @@ const signUp = (props: Props) => {
               value={email}
               placeholder="Email"
               onChangeText={handleChange('email')}
+              autoCapitalize="none"
             />
             {touched.email && errors.email && (
               <Text style={{ color: 'red', fontWeight: 'bold' }}>
@@ -296,6 +295,40 @@ const signUp = (props: Props) => {
               save="key"
               placeholder="State"
             />
+
+            {touched.state && errors.state && (
+              <Text style={{ color: 'red', fontWeight: 'bold' }}>
+                {errors.state}
+              </Text>
+            )}
+          </>
+
+          <>
+            {fetching ? (
+              <Box style={[styles2.border, { paddingLeft: 15 }]}>
+                <ActivityIndicator color="black" />
+              </Box>
+            ) : (
+              <SelectList
+                search={false}
+                boxStyles={{
+                  ...styles2.border,
+                  justifyContent: 'flex-start',
+                  backgroundColor: 'white',
+                  alignItems: 'center',
+                }}
+                inputStyles={{
+                  textAlign: 'left',
+                  color: 'black',
+                }}
+                fontFamily="Poppins"
+                setSelected={handleChange('community')}
+                data={communities}
+                defaultOption={communities?.[0]}
+                save="key"
+                placeholder="Community"
+              />
+            )}
 
             {touched.state && errors.state && (
               <Text style={{ color: 'red', fontWeight: 'bold' }}>

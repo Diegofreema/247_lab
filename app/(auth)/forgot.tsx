@@ -14,7 +14,7 @@ import { MyButton } from '@/components/ui/MyButton';
 import axios from 'axios';
 import { api } from '@/lib/helper';
 import Toast from 'react-native-toast-message';
-
+// ! todo when the api is fixed
 type Props = {};
 const validationSchema = yup.object().shape({
   email: yup.string().email('Invalid email').required('Email is required'),
@@ -37,17 +37,21 @@ const forgot = (props: Props) => {
     validationSchema,
     onSubmit: async (values) => {
       try {
-        const { data } = await axios.post(
-          `${api}?api=recoverpassword&patientemail=${values.email}`
+        const { data } = await axios.get(
+          `${api}api=recoverpassword&email=${values.email}`
         );
 
-        if (data === "{'result': 'failed'}") {
+        console.log(data, 'sent data');
+
+        if (data.result === 'Password Sent') {
           Toast.show({
             type: 'transparentToast',
-            text1: 'Please try again',
-            text2: 'Something went wrong',
+            text1: 'Successfully sent',
+            text2: 'Please check your registered email',
             position: 'top',
           });
+          resetForm();
+          router.back();
           return;
         }
         if (data !== '') {
@@ -62,13 +66,13 @@ const forgot = (props: Props) => {
 
         Toast.show({
           type: 'transparentToast',
-          text1: 'Please check your email',
-          text2: 'We have sent you an email',
+          text1: 'Something went wrong',
+          text2: 'Please try again later',
           position: 'top',
         });
-
-        router.back();
       } catch (error) {
+        console.log(error);
+
         Toast.show({
           type: 'transparentToast',
           text1: 'Please try again',
@@ -96,6 +100,8 @@ const forgot = (props: Props) => {
             placeholder="Email"
             onChangeText={handleChange('email')}
             value={values.email}
+            keyboardType="email-address"
+            autoCapitalize="none"
           />
           {touched.email && errors.email && (
             <Text style={{ color: 'red' }}>{errors.email}</Text>

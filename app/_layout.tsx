@@ -65,8 +65,16 @@ const toastConfig = {
         borderRadius: 10,
       }}
     >
-      <Text style={{ fontFamily: 'PoppinsBold', color: 'white' }}>{text1}</Text>
-      <Text style={{ fontFamily: 'PoppinsBold', color: 'white' }}>{text2}</Text>
+      <Text
+        style={{ fontFamily: 'PoppinsMedium', color: 'white', fontSize: 11 }}
+      >
+        {text1}
+      </Text>
+      <Text
+        style={{ fontFamily: 'PoppinsMedium', color: 'white', fontSize: 13 }}
+      >
+        {text2}
+      </Text>
     </View>
   ),
 };
