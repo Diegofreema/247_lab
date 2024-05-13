@@ -74,7 +74,7 @@ const Onboard = () => {
             </Animated.Text>
             <View style={{ minHeight: 110 }}>
               <Animated.Text
-                entering={animation.delay(150)}
+                entering={animation.delay(200)}
                 style={styles.subText}
               >
                 {data.subText}

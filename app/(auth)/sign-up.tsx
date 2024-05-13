@@ -5,17 +5,13 @@ import {
   ScrollView,
   Platform,
 } from 'react-native';
-import * as yup from 'yup';
 import { useFormik } from 'formik';
-
 import { SelectList } from 'react-native-dropdown-select-list';
 import DateTimePicker from '@react-native-community/datetimepicker';
-
 import { Box, VStack } from '@gluestack-ui/themed';
-
 import { useRouter } from 'expo-router';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { format } from 'date-fns';
 import axios from 'axios';
 import Toast from 'react-native-toast-message';
@@ -25,13 +21,10 @@ import { NavHeader } from '@/components/ui/NavHeader';
 import { ConfirmModal } from '@/components/ui/Modals/ConfirmModal';
 import { BoldHeader } from '@/components/ui/BoldHeader';
 import { TextInput } from '@/components/ui/TextInput';
-import { colors } from '@/constants';
 import { MyButton } from '@/components/ui/MyButton';
-import { useCommunity, useStates } from '@/lib/tanstack/queries';
+import { useStates } from '@/lib/tanstack/queries';
 import { ErrorComponent } from '@/components/ui/Error';
 import { Loading } from '@/components/ui/Loading';
-import { useAuth } from '@/lib/zustand/auth';
-import { StateType } from '@/lib/@types';
 import { ActivityIndicator } from 'react-native-paper';
 import { useCommunities } from '@/hooks/useCommunities';
 import { RegisterSchema, defaultDateOfBirth } from '@/lib/validators';
@@ -43,9 +36,7 @@ const signUp = (props: Props) => {
   const [date, setDate] = useState(new Date(defaultDateOfBirth));
   const [showModal, setShowModal] = useState(false);
   const { data, isPending, isError, refetch, isPaused } = useStates();
-
   const [show, setShow] = useState(false);
-
   const {
     handleChange,
     handleSubmit,

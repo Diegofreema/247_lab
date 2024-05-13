@@ -35,3 +35,25 @@ export type ValueType = {
   state: string;
   community: string;
 };
+
+export type LabBranch = {
+  id: string;
+  branch: string;
+};
+
+export type Cat = {
+  categoryname: string;
+};
+
+export type Results = {
+  test: string;
+  branchaddress: string;
+  branch: string;
+  TestRef: string;
+  Datex: string;
+  status: 'Ready' | 'Pending';
+  download: string;
+  color: string;
+  ref: string;
+  fileext: string;
+};

@@ -1,6 +1,13 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { ServiceType, StateType, UserType } from '../@types';
+import {
+  Cat,
+  LabBranch,
+  Results,
+  ServiceType,
+  StateType,
+  UserType,
+} from '../@types';
 import { useAuth } from '../zustand/auth';
 import { useUser } from '../zustand/useUser';
 
@@ -76,5 +83,60 @@ export const useProfile = () => {
   return useQuery({
     queryKey: ['profile'],
     queryFn: getProfile,
+  });
+};
+
+export const useLabs = (id: any) => {
+  const getLabs = async () => {
+    const { data } = await axios.get(`${api}api=getlab&patientid=${id}`);
+    return data as LabBranch[];
+  };
+
+  return useQuery({
+    queryKey: ['labs', id],
+    queryFn: getLabs,
+  });
+};
+export const useTestCat = (id: string) => {
+  const getTestCatssd = async () => {
+    const { data } = await axios.get(
+      `${api}api=gettestcategory&branchid=${id}`
+    );
+    return data;
+  };
+
+  return useQuery<Cat[]>({
+    queryKey: ['testCats'],
+    queryFn: getTestCatssd,
+  });
+};
+export const useResults = () => {
+  const { id } = useAuth();
+  const getResults = async () => {
+    const { data } = await axios.get(
+      `${api}api=getpasttestinfo&patientid=${id}`
+    );
+
+    return data;
+  };
+
+  return useQuery<Results[]>({
+    queryKey: ['results'],
+    queryFn: getResults,
+  });
+};
+export const useTest = (branchId: string, cat: string) => {
+  const { id } = useAuth();
+  const getTests = async () => {
+    const { data } = await axios.get(
+      `${api}api=gettest&patientid=${id}&branchid=${branchId}&testcategoryid=${cat}`
+    );
+
+    return data;
+  };
+
+  return useQuery({
+    queryKey: ['tests'],
+    queryFn: getTests,
   });
 };

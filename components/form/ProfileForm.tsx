@@ -1,9 +1,8 @@
-import { StyleSheet, View, Text, Platform, ScrollView } from 'react-native';
+import { StyleSheet, Text, ScrollView } from 'react-native';
 import { TextInput } from '../ui/TextInput';
 import { SelectList } from 'react-native-dropdown-select-list';
 import { ActivityIndicator } from 'react-native-paper';
 import { Box, VStack } from '@gluestack-ui/themed';
-import { ValueType } from '@/lib/@types';
 import { useFormik } from 'formik';
 import { EditFormSchema } from '@/lib/validators';
 import { api } from '@/lib/helper';
@@ -16,13 +15,16 @@ import { ErrorComponent } from '../ui/Error';
 import { Loading } from '../ui/Loading';
 import { MyButton } from '../ui/MyButton';
 import { useUser } from '@/lib/zustand/useUser';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { router } from 'expo-router';
+import { useQueryClient } from '@tanstack/react-query';
 
 export const ProfileForm = (): JSX.Element => {
   const { id } = useAuth();
   const { data, isPending, isError, refetch, isPaused } = useStates();
   const { user } = useUser();
+  const queryClient = useQueryClient();
+  const [isLoading, setIsLoading] = useState(true);
   const {
     handleChange,
     handleSubmit,
@@ -69,6 +71,7 @@ export const ProfileForm = (): JSX.Element => {
             text2: 'Your profile has been updated',
             position: 'top',
           });
+          queryClient.invalidateQueries({ queryKey: ['profile'] });
           router.back();
           return;
         }
@@ -103,6 +106,8 @@ export const ProfileForm = (): JSX.Element => {
       phoneNumber: user.phone,
       state: user.statename,
     });
+
+    setIsLoading(false);
   }, [user]);
 
   const { address, email, firstName, lastName, phoneNumber, community, state } =
@@ -115,7 +120,7 @@ export const ProfileForm = (): JSX.Element => {
     return <ErrorComponent refetch={handleRefetch} />;
   }
 
-  if (isPending) {
+  if (isPending || isLoading) {
     return <Loading />;
   }
   return (

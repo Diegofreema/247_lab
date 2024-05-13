@@ -13,7 +13,6 @@ import { router } from 'expo-router';
 type Props = {};
 
 const profile = (props: Props) => {
-  const { user } = useUser();
   const onPress = () => {
     router.push('/edit-profile');
   };

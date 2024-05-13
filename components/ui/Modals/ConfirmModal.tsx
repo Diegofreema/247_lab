@@ -8,6 +8,7 @@ import {
 import Modal from 'react-native-modal';
 import { MyText } from '../MyText';
 import { MyButton } from '../MyButton';
+import { colors } from '@/constants';
 type Props = {
   onPress: () => void;
   name: string;
@@ -44,12 +45,17 @@ export const ConfirmModal = ({
             resizeMode="contain"
           />
           <MyText
-            style={{ fontFamily: 'PoppinsBold', fontSize: 18 }}
+            style={{ fontFamily: 'PoppinsBold', fontSize: 18, color: 'black' }}
             text="Account Created"
           />
           <MyText
-            style={{ fontFamily: 'Poppins', fontSize: 13, textAlign: 'center' }}
-            text={`Welcome to 247Doc ${name}`}
+            style={{
+              fontFamily: 'Poppins',
+              fontSize: 13,
+              textAlign: 'center',
+              color: colors.black,
+            }}
+            text={`Welcome to 247Lab`}
           />
 
           <MyButton text="Continue" onPress={onPress} style={{ width: 150 }} />

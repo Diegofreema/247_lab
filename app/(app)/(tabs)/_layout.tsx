@@ -56,12 +56,12 @@ export default function TabLayout() {
         />
 
         <Tabs.Screen
-          name="sessions"
+          name="labs"
           options={{
-            title: 'Sessions',
+            title: 'Book',
             tabBarIcon: ({ focused }) => (
               <TabBarIcon
-                name="book"
+                name="calendar"
                 color={focused ? colors.green : colors.grey}
               />
             ),

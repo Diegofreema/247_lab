@@ -17,7 +17,6 @@ export const ProfileImg = ({
 
   const firstLetter = user?.fname.charAt(0).toUpperCase();
   const lastLetter = user?.lname.charAt(0).toUpperCase();
-  console.log('🚀 ~ file: ProfileImg.tsx:ProfileImg ~ user:', user);
 
   return (
     <View style={[{ alignItems: 'center', gap: 5 }, containerStyle]}>

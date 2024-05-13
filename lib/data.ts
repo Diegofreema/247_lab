@@ -11,7 +11,7 @@ export const profileLinks = [
   },
   {
     name: 'log-out',
-    link: '/logout',
+
     label: 'Log out',
   },
 ];

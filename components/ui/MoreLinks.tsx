@@ -5,6 +5,8 @@ import { Icon, ListItem } from '@rneui/themed';
 import { StyleSheet, View, Text } from 'react-native';
 import { MyText } from './MyText';
 import { useRouter } from 'expo-router';
+import { useUser } from '@/lib/zustand/useUser';
+import { useAuth } from '@/lib/zustand/auth';
 
 type Props = {};
 
@@ -30,10 +32,20 @@ type ItemType = {
   item: (typeof profileLinks)[0];
 };
 const LinkItem = ({ item }: ItemType) => {
+  const { clearUser } = useUser();
+  const { clearUser: clearId } = useAuth();
   const router = useRouter();
-
+  const logout = () => {
+    clearId();
+    clearUser();
+    router.push('/');
+  };
   const onPress = () => {
-    router.push(item.link);
+    if (item?.link) {
+      router.push(item.link);
+    } else {
+      logout();
+    }
   };
 
   const color = item.name === 'log-out' ? colors.red : colors.green;
