@@ -57,3 +57,10 @@ export type Results = {
   ref: string;
   fileext: string;
 };
+
+export type Test = {
+  logistics: string;
+  test: string;
+  id: string;
+  homeservice: 'Unavailable' | 'Available';
+};

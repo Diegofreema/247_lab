@@ -6,6 +6,7 @@ import {
   Results,
   ServiceType,
   StateType,
+  Test,
   UserType,
 } from '../@types';
 import { useAuth } from '../zustand/auth';
@@ -125,17 +126,25 @@ export const useResults = () => {
     queryFn: getResults,
   });
 };
-export const useTest = (branchId: string, cat: string) => {
+export const useTestFetch = (branchId: string, cat: string) => {
   const { id } = useAuth();
   const getTests = async () => {
-    const { data } = await axios.get(
+    const response = await axios.get(
       `${api}api=gettest&patientid=${id}&branchid=${branchId}&testcategoryid=${cat}`
     );
+    let data = [];
+    if (Object.prototype.toString.call(response.data) === '[object Object]') {
+      data.push(response.data);
+    } else if (
+      Object.prototype.toString.call(response.data) === '[object Array]'
+    ) {
+      data = [...response.data];
+    }
 
     return data;
   };
 
-  return useQuery({
+  return useQuery<Test[]>({
     queryKey: ['tests'],
     queryFn: getTests,
   });
