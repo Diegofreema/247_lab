@@ -34,34 +34,10 @@ import { useAuth } from '@/lib/zustand/auth';
 import { StateType } from '@/lib/@types';
 import { ActivityIndicator } from 'react-native-paper';
 import { useCommunities } from '@/hooks/useCommunities';
+import { RegisterSchema, defaultDateOfBirth } from '@/lib/validators';
 
 type Props = {};
 
-const defaultDateOfBirth = new Date(
-  new Date().setFullYear(new Date().getFullYear() - 18)
-);
-const passwordRegExp =
-  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{5,}$/;
-const validationSchema = yup.object().shape({
-  firstName: yup.string().required('First name is required'),
-  lastName: yup.string().required('Last name is required'),
-  email: yup.string().email('Invalid email').required('Email is required'),
-  password: yup
-    .string()
-    .matches(
-      passwordRegExp,
-      'Password must include at least one capital letter, one number, one lower case letter, and one special character'
-    ),
-  confirmPassword: yup
-    .string()
-    .oneOf([yup.ref('password')], 'Passwords must match')
-    .required('Confirm Password is required'),
-  phoneNumber: yup.string().required('Phone number is required'),
-  address: yup.string().required('Address is required'),
-  dateOfBirth: yup.string().required('Date of birth is required'),
-  community: yup.string().required('Community is required'),
-  state: yup.string().required('State is required'),
-});
 const signUp = (props: Props) => {
   const router = useRouter();
   const [date, setDate] = useState(new Date(defaultDateOfBirth));
@@ -92,7 +68,7 @@ const signUp = (props: Props) => {
       state: 'Abuja',
       community: '',
     },
-    validationSchema,
+    validationSchema: RegisterSchema,
     onSubmit: async (values) => {
       const {
         address,
@@ -111,7 +87,7 @@ const signUp = (props: Props) => {
         .replace(/:/g, '');
       try {
         const { data } = await axios.post(
-          `${api}api=registerpatient&email=${email}&fname=${firstName}&lname=${lastName}&phone=${phoneNumber}dob=${dateOfBirth}8&statename=${state}&communityname=${community}&address=${address}&pasword=${formattedPassword}`
+          `${api}api=registerpatient&email=${email}&fname=${firstName}&lname=${lastName}&phone=${phoneNumber}&dob=${dateOfBirth}&statename=${state}&communityname=${community}&address=${address}&pasword=${formattedPassword}`
         );
         console.log(data, 'sent data');
 
@@ -435,7 +411,7 @@ const signUp = (props: Props) => {
           <MyButton
             loading={isSubmitting}
             onPress={() => handleSubmit()}
-            text="Create Account"
+            text={isSubmitting ? 'Creating...' : 'Create Account'}
           />
         </VStack>
       </ScrollView>
@@ -444,20 +420,6 @@ const signUp = (props: Props) => {
 };
 
 export default signUp;
-
-const styles = StyleSheet.create({
-  text: {
-    color: colors.green,
-    fontFamily: 'Poppins',
-  },
-  textContainer: {
-    alignSelf: 'flex-end',
-  },
-  createAccountText: {
-    fontFamily: 'Poppins',
-    textAlign: 'center',
-  },
-});
 
 const styles2 = StyleSheet.create({
   border: {

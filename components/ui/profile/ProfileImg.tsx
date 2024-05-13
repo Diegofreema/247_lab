@@ -1,6 +1,6 @@
 import { useUser } from '@/lib/zustand/useUser';
 import { StyleSheet, View, Text, ViewStyle, StyleProp } from 'react-native';
-import { MyText } from './MyText';
+import { MyText } from '../MyText';
 import { colors } from '@/constants';
 import { HStack } from '@gluestack-ui/themed';
 

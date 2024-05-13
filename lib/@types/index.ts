@@ -22,3 +22,16 @@ export type ServiceType = {
   netproshare: number;
   partnershare: number;
 };
+
+export type ValueType = {
+  email: string;
+  firstName: string;
+  lastName: string;
+  password: string;
+  confirmPassword: string;
+  phoneNumber: string;
+  address: string;
+  dateOfBirth: string;
+  state: string;
+  community: string;
+};

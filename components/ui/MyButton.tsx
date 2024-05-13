@@ -2,6 +2,7 @@ import { colors } from '@/constants';
 
 import { StyleSheet, StyleProp, TextStyle, ViewStyle } from 'react-native';
 import { Button } from 'react-native-paper';
+import { IconSource } from 'react-native-paper/lib/typescript/components/Icon';
 
 type Props = {
   text: string;
@@ -9,6 +10,7 @@ type Props = {
   loading?: boolean;
   textStyle?: StyleProp<TextStyle>;
   style?: StyleProp<ViewStyle>;
+  icon?: IconSource | undefined;
 };
 
 export const MyButton = ({
@@ -17,11 +19,13 @@ export const MyButton = ({
   onPress,
   style,
   loading,
+  icon,
 }: Props): JSX.Element => {
   return (
     <Button
       loading={loading}
       onPress={onPress}
+      icon={icon}
       rippleColor={colors.green2}
       contentStyle={[
         {

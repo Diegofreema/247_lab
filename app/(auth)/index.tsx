@@ -149,7 +149,7 @@ const Login = (props: Props) => {
             <MyButton
               loading={isSubmitting}
               onPress={() => handleSubmit()}
-              text="Login"
+              text={isSubmitting ? 'Logging in...' : 'Log In'}
             />
 
             <Pressable
