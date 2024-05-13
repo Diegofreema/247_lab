@@ -1,7 +1,13 @@
 import { FlatList, StyleSheet, Text } from 'react-native';
-import React, { useCallback, useMemo, useState } from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import { Container } from '@/components/ui/Container';
-import { useLocalSearchParams } from 'expo-router';
+import { Redirect, useLocalSearchParams } from 'expo-router';
 import { useTestFetch } from '@/lib/tanstack/queries';
 import { ErrorComponent } from '@/components/ui/Error';
 import { Loading } from '@/components/ui/Loading';
@@ -17,6 +23,11 @@ import { MyButton } from '@/components/ui/MyButton';
 import { Value, useBookMutation } from '@/lib/tanstack/mutation';
 import { useAuth } from '@/lib/zustand/auth';
 import Animated, { SlideInLeft, SlideInRight } from 'react-native-reanimated';
+import { BookItem } from '@/components/ui/BookItem';
+import { Paystack, paystackProps } from 'react-native-paystack-webview';
+import Toast from 'react-native-toast-message';
+import { useUser } from '@/lib/zustand/useUser';
+import axios from 'axios';
 
 const Book = () => {
   const { branchId, catId } = useLocalSearchParams<{
@@ -28,13 +39,18 @@ const Book = () => {
     mutate,
     isPending: isPendingMutation,
   } = useBookMutation();
+  const { user } = useUser();
   console.log(refData);
-
+  const paystackWebViewRef = useRef<paystackProps.PayStackRef>(null);
   const { data, isError, isPaused, refetch, isPending } = useTestFetch(
     branchId as string,
     catId as string
   );
-
+  useEffect(() => {
+    if (refData?.ref) {
+      paystackWebViewRef.current?.startTransaction();
+    }
+  }, [refData?.ref]);
   const getParams = useCallback((params: Value) => {
     mutate(params);
   }, []);
@@ -47,9 +63,50 @@ const Book = () => {
     return <Loading />;
   }
 
+  if (!user) return <Redirect href="/" />;
+
+  const { email } = user;
+
+  console.log(data);
+  const totalCost =
+    Number(refData?.servicecost) + Number(refData?.logisticValue);
+
   return (
     <Container>
       <NavHeader title="Select Test" />
+      <Paystack
+        paystackKey="pk_test_ed76c81770ed30bfd8734bd6086aa6e2e2057088"
+        billingEmail={`${email}.com`}
+        amount={totalCost}
+        channels={[
+          'card',
+          'bank',
+          'ussd',
+          'mobile_money',
+          'qr',
+          'bank_transfer',
+        ]}
+        onCancel={(e) => {
+          Toast.show({
+            type: 'transparentToast',
+            text1: 'Payment Cancelled',
+            position: 'top',
+          });
+        }}
+        onSuccess={async (res) => {
+          await axios.post(
+            `https://247laboratory.net/checkout.aspx?zxc=${refData?.ref}`
+          );
+          Toast.show({
+            type: 'transparentToast',
+            text1: 'Payment successful',
+            text2: 'You have successfully booked this test',
+            position: 'top',
+          });
+        }}
+        // @ts-ignore
+        ref={paystackWebViewRef}
+      />
       <FlatList
         data={data}
         renderItem={({ item, index }) => (
@@ -73,87 +130,3 @@ const Book = () => {
 export default Book;
 
 const styles = StyleSheet.create({});
-
-const BookItem = ({
-  item,
-  index,
-  onGetParams,
-  branchId,
-  isLoading,
-}: {
-  item: Test;
-  index: number;
-  onGetParams: (params: Value) => void;
-  branchId: string | undefined;
-  isLoading: boolean;
-}) => {
-  const [selected, setSelected] = useState(false);
-  const { id } = useAuth();
-  const onToggleHomeService = () => setSelected(!selected);
-  const testName = item?.test.split('-')[0];
-  const totalPrice = item?.test.split('-')[1].replace(' ', '').replace('N', '');
-  const homeServiceFee = +item.logistics;
-  const basePrice = +totalPrice.replace(',', '');
-
-  console.log(homeServiceFee + basePrice);
-
-  const finalPrice = useMemo(() => {
-    if (selected) {
-      return basePrice + homeServiceFee;
-    } else {
-      return basePrice;
-    }
-  }, [selected]);
-  const logisticValue = useMemo(() => {
-    if (selected) {
-      return homeServiceFee;
-    } else {
-      return 0;
-    }
-  }, [selected]);
-  console.log({ logisticValue });
-
-  const onBook = () => {
-    onGetParams({
-      testid: item.id,
-      patientid: id as string,
-      logisticsvalue: logisticValue,
-      branchid: branchId as string,
-    });
-  };
-  const AnimationDirection = index % 2 === 0 ? SlideInLeft : SlideInRight;
-  return (
-    <Animated.View entering={AnimationDirection}>
-      <CardCase gap={10}>
-        <TestItem title={testName} subTitle={'Test'} />
-        <TestItem title={`₦${totalPrice}`} subTitle={'Base Price'} />
-
-        {item?.homeservice === 'Available' && (
-          <TestItem title={`₦${item?.logistics}`} subTitle={'Home service'} />
-        )}
-        <HStack justifyContent="space-between" alignItems="center">
-          <MyText text={'Accept home service'} style={{ color: 'black' }} />
-          <Switch value={selected} onValueChange={onToggleHomeService} />
-        </HStack>
-        <Divider style={{ marginVertical: 10 }} />
-        <TestItem title={`₦${finalPrice}`} subTitle={'Total Price'} />
-        <MyButton text="Proceed" onPress={onBook} loading={isLoading} />
-      </CardCase>
-    </Animated.View>
-  );
-};
-
-const TestItem = ({ title, subTitle }: { title: string; subTitle: string }) => {
-  return (
-    <HStack justifyContent="space-between" alignItems="center">
-      <MyText
-        text={subTitle}
-        style={{ color: 'black', fontFamily: 'Poppins' }}
-      />
-      <MyText
-        text={title}
-        style={{ color: 'black', fontFamily: 'PoppinsBold' }}
-      />
-    </HStack>
-  );
-};
