@@ -57,9 +57,17 @@ export const useCommunity = (state: string) => {
 
 export const useGetServices = () => {
   const getServices = async () => {
-    const { data } = await axios.get(
+    const response = await axios.get(
       'http://247laboratory.net/branches/getservices'
     );
+    let data = [];
+    if (Object.prototype.toString.call(response.data) === '[object Object]') {
+      data.push(response.data);
+    } else if (
+      Object.prototype.toString.call(response.data) === '[object Array]'
+    ) {
+      data = [...response.data];
+    }
 
     return data as ServiceType[];
   };
@@ -89,7 +97,15 @@ export const useProfile = () => {
 
 export const useLabs = (id: any) => {
   const getLabs = async () => {
-    const { data } = await axios.get(`${api}api=getlab&patientid=${id}`);
+    const response = await axios.get(`${api}api=getlab&patientid=${id}`);
+    let data = [];
+    if (Object.prototype.toString.call(response.data) === '[object Object]') {
+      data.push(response.data);
+    } else if (
+      Object.prototype.toString.call(response.data) === '[object Array]'
+    ) {
+      data = [...response.data];
+    }
     return data as LabBranch[];
   };
 
@@ -114,9 +130,17 @@ export const useTestCat = (id: string) => {
 export const useResults = () => {
   const { id } = useAuth();
   const getResults = async () => {
-    const { data } = await axios.get(
+    const response = await axios.get(
       `${api}api=getpasttestinfo&patientid=${id}`
     );
+    let data = [];
+    if (Object.prototype.toString.call(response.data) === '[object Object]') {
+      data.push(response.data);
+    } else if (
+      Object.prototype.toString.call(response.data) === '[object Array]'
+    ) {
+      data = [...response.data];
+    }
 
     return data;
   };
@@ -145,7 +169,7 @@ export const useTestFetch = (branchId: string, cat: string) => {
   };
 
   return useQuery<Test[]>({
-    queryKey: ['tests'],
+    queryKey: ['tests', branchId, cat],
     queryFn: getTests,
   });
 };

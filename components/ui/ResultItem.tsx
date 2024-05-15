@@ -30,7 +30,7 @@ export const ResultItem = ({
   } = item;
 
   const statusColor = status === 'Pending' ? 'orange' : 'green';
-
+  const formattedTest = test?.split('-')[1] + `${test?.split('-')[2] || ''}`;
   return (
     <Animated.View
       entering={SlideInLeft.delay(500 * index)
@@ -46,7 +46,7 @@ export const ResultItem = ({
           <HStack justifyContent="space-between" mb={5}>
             <HStack gap={5}>
               <MyText
-                text={test}
+                text={formattedTest}
                 style={{ color: colors.black, fontFamily: 'PoppinsBold' }}
               />
             </HStack>

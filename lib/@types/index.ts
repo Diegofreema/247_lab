@@ -63,4 +63,5 @@ export type Test = {
   test: string;
   id: string;
   homeservice: 'Unavailable' | 'Available';
+  cost: string;
 };

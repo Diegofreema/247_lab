@@ -7,7 +7,7 @@ import React, {
   useState,
 } from 'react';
 import { Container } from '@/components/ui/Container';
-import { Redirect, useLocalSearchParams } from 'expo-router';
+import { Redirect, router, useLocalSearchParams } from 'expo-router';
 import { useTestFetch } from '@/lib/tanstack/queries';
 import { ErrorComponent } from '@/components/ui/Error';
 import { Loading } from '@/components/ui/Loading';
@@ -40,7 +40,7 @@ const Book = () => {
     isPending: isPendingMutation,
   } = useBookMutation();
   const { user } = useUser();
-  console.log(refData);
+  console.log(refData, 'refData');
   const paystackWebViewRef = useRef<paystackProps.PayStackRef>(null);
   const { data, isError, isPaused, refetch, isPending } = useTestFetch(
     branchId as string,
@@ -67,9 +67,7 @@ const Book = () => {
 
   const { email } = user;
 
-  console.log(data);
-  const totalCost =
-    Number(refData?.servicecost) + Number(refData?.logisticValue);
+  const totalCost = Number(refData?.servicecost) + Number(refData?.logistics);
 
   return (
     <Container>
@@ -103,6 +101,8 @@ const Book = () => {
             text2: 'You have successfully booked this test',
             position: 'top',
           });
+
+          router.back();
         }}
         // @ts-ignore
         ref={paystackWebViewRef}

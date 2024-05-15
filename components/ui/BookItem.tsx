@@ -25,10 +25,9 @@ export const BookItem = ({
   const [selected, setSelected] = useState(false);
   const { id } = useAuth();
   const onToggleHomeService = () => setSelected(!selected);
-  const testName = item?.test.split('-')[0];
-  const totalPrice = item?.test.split('-')[1].replace(' ', '').replace('N', '');
+  const testName = item?.test.split('- N')[0];
+  const basePrice = +item?.cost;
   const homeServiceFee = item?.logistics ? +item.logistics : 0;
-  const basePrice = +totalPrice.replace(',', '');
 
   const finalPrice = useMemo(() => {
     if (selected) {
@@ -59,7 +58,7 @@ export const BookItem = ({
     <Animated.View entering={AnimationDirection}>
       <CardCase gap={10}>
         <TestItem title={testName} subTitle={'Test'} />
-        <TestItem title={`₦${totalPrice}`} subTitle={'Base Price'} />
+        <TestItem title={`₦${basePrice}`} subTitle={'Base Price'} />
 
         {item?.logistics && (
           <TestItem title={`₦${item?.logistics}`} subTitle={'Home service'} />

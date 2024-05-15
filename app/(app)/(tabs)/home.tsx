@@ -56,6 +56,9 @@ const home = (props: Props) => {
   if (isPending || isPendingLabs || isPendingResults) {
     return <Loading />;
   }
+
+  console.log(results);
+
   const fourLabs = labs?.slice(0, 4);
   const sevenResults = results?.slice(0, 7);
   return (
