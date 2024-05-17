@@ -5,6 +5,8 @@ import { Redirect, Tabs } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { useAuth } from '@/lib/zustand/auth';
 import { colors } from '@/constants';
+import { TabBarButton } from '@/components/ui/tabbarButton';
+import { Feather } from 'lucide-react-native';
 
 function TabBarIcon(props: {
   name: React.ComponentProps<typeof FontAwesome>['name'];
@@ -12,6 +14,9 @@ function TabBarIcon(props: {
 }) {
   return <FontAwesome size={23} style={{ marginBottom: -3 }} {...props} />;
 }
+
+const tabBarActiveTintColor = colors.green;
+const tabBarInactiveTintColor = colors.darkGrey;
 
 export default function TabLayout() {
   const { id, getUser } = useAuth();
@@ -46,10 +51,12 @@ export default function TabLayout() {
           name="home"
           options={{
             title: 'Home',
-            tabBarIcon: ({ focused }) => (
-              <TabBarIcon
-                name="home"
-                color={focused ? colors.green : colors.grey}
+            tabBarButton: (props) => (
+              <TabBarButton
+                {...props}
+                activeTintColor={tabBarActiveTintColor}
+                inactiveTintColor={tabBarInactiveTintColor}
+                icon={({ color }) => <TabBarIcon name="home" color={color} />}
               />
             ),
           }}
@@ -59,10 +66,14 @@ export default function TabLayout() {
           name="labs"
           options={{
             title: 'Book',
-            tabBarIcon: ({ focused }) => (
-              <TabBarIcon
-                name="calendar"
-                color={focused ? colors.green : colors.grey}
+            tabBarButton: (props) => (
+              <TabBarButton
+                {...props}
+                activeTintColor={tabBarActiveTintColor}
+                inactiveTintColor={tabBarInactiveTintColor}
+                icon={({ color }) => (
+                  <TabBarIcon name="calendar" color={color} />
+                )}
               />
             ),
           }}
@@ -71,10 +82,12 @@ export default function TabLayout() {
           name="more"
           options={{
             title: 'More',
-            tabBarIcon: ({ focused }) => (
-              <TabBarIcon
-                name="cog"
-                color={focused ? colors.green : colors.grey}
+            tabBarButton: (props) => (
+              <TabBarButton
+                {...props}
+                activeTintColor={tabBarActiveTintColor}
+                inactiveTintColor={tabBarInactiveTintColor}
+                icon={({ color }) => <TabBarIcon name="cog" color={color} />}
               />
             ),
           }}

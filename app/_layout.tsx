@@ -20,6 +20,7 @@ import Toast, {
 import { colors } from '@/constants';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { OfflineBanner } from '@/components/ui/offlineBanner';
 export {
   // Catch any errors thrown by the Layout component.
   ErrorBoundary,
@@ -118,6 +119,7 @@ function RootLayoutNav() {
           <GestureHandlerRootView style={{ flex: 1 }}>
             <SafeAreaView style={{ flex: 1 }}>
               <Slot initialRouteName="(app)" />
+              <OfflineBanner />
             </SafeAreaView>
             <Toast config={toastConfig} />
           </GestureHandlerRootView>
