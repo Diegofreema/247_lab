@@ -131,7 +131,7 @@ export const useResults = () => {
   const { id } = useAuth();
   const getResults = async () => {
     const response = await axios.get(
-      `${api}api=getpasttestinfo&patientid=${id}`
+      `${api}api=getpasttestinfo&patientid=${'RW6784FA'}`
     );
     let data = [];
     if (Object.prototype.toString.call(response.data) === '[object Object]') {

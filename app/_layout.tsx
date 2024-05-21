@@ -21,6 +21,7 @@ import { colors } from '@/constants';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { OfflineBanner } from '@/components/ui/offlineBanner';
+import * as Updates from 'expo-updates';
 export {
   // Catch any errors thrown by the Layout component.
   ErrorBoundary,
@@ -95,6 +96,23 @@ export default function RootLayout() {
   useEffect(() => {
     if (error) throw error;
   }, [error]);
+
+  useEffect(() => {
+    async function onFetchUpdateAsync() {
+      try {
+        const update = await Updates.checkForUpdateAsync();
+
+        if (update.isAvailable) {
+          await Updates.fetchUpdateAsync();
+          await Updates.reloadAsync();
+        }
+      } catch (error) {
+        // You can also add an alert() to see the error message in case of an error when fetching updates.
+        console.log(error);
+      }
+    }
+    onFetchUpdateAsync();
+  }, []);
 
   useEffect(() => {
     if (loaded) {

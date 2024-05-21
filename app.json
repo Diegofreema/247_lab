@@ -12,7 +12,9 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true
     },
@@ -20,7 +22,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "eyrr.aasdd_trbac.r"
     },
     "web": {
       "bundler": "metro",
@@ -32,6 +35,7 @@
       "expo-secure-store",
       "expo-font",
       "expo-quick-actions",
+      "expo-updates",
       [
         "expo-build-properties",
         {
@@ -46,6 +50,20 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "db90a2ca-e3ec-4660-b659-dd4503c48db1"
+      }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/db90a2ca-e3ec-4660-b659-dd4503c48db1"
     }
   }
 }
