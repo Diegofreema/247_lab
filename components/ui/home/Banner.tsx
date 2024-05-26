@@ -6,7 +6,7 @@ type Props = {};
 
 export const Banner = ({}: Props): JSX.Element => {
   const onPress = () => {
-    router.push('/sessions');
+    router.push('/labs');
   };
   return (
     <Pressable

@@ -7,7 +7,10 @@ import {
 } from 'react-native';
 import { useFormik } from 'formik';
 import { SelectList } from 'react-native-dropdown-select-list';
-import DateTimePicker from '@react-native-community/datetimepicker';
+import DateTimePicker, {
+  DateTimePickerAndroid,
+  DateTimePickerEvent,
+} from '@react-native-community/datetimepicker';
 import { Box, VStack } from '@gluestack-ui/themed';
 import { useRouter } from 'expo-router';
 
@@ -146,15 +149,25 @@ const signUp = (props: Props) => {
     return <Loading />;
   }
 
-  const onChange = ({ type }: any, selectedDate: any) => {
+  const onChange = ({ type }: DateTimePickerEvent, selectedDate: any) => {
     if (type === 'set') {
       const currentDate = selectedDate;
       setShow(false);
       setDate(currentDate);
       setValues({ ...values, dateOfBirth: format(currentDate, 'yyyy-mm-dd') });
+    } else {
+      setShow(false);
     }
   };
-
+  const showAndroid = () => {
+    DateTimePickerAndroid.open({
+      value: date,
+      onChange,
+      mode: 'date',
+      is24Hour: true,
+      display: 'spinner',
+    });
+  };
   const showMode = () => {
     setShow(true);
   };
@@ -167,8 +180,6 @@ const signUp = (props: Props) => {
     setShowModal(false);
     resetForm();
   };
-
-  console.log(errors);
 
   return (
     <Container>
@@ -305,28 +316,16 @@ const signUp = (props: Props) => {
           </>
           <>
             {Platform.OS === 'android' && (
-              <>
-                <Pressable
-                  onPress={showMode}
-                  style={({ pressed }) => pressed && { opacity: 0.5 }}
-                >
-                  <TextInput
-                    value={dateOfBirth}
-                    placeholder="Date of Birth"
-                    editable={false}
-                  />
-                </Pressable>
-                {show && (
-                  <DateTimePicker
-                    testID="dateTimePicker"
-                    value={date}
-                    mode={'date'}
-                    is24Hour={true}
-                    onChange={onChange}
-                    display="spinner"
-                  />
-                )}
-              </>
+              <Pressable
+                onPress={showAndroid}
+                style={({ pressed }) => pressed && { opacity: 0.5 }}
+              >
+                <TextInput
+                  value={dateOfBirth}
+                  placeholder="Date of Birth"
+                  editable={false}
+                />
+              </Pressable>
             )}
             {Platform.OS === 'ios' && (
               <>
