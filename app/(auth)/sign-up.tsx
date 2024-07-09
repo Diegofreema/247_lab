@@ -38,6 +38,9 @@ const signUp = (props: Props) => {
   const router = useRouter();
   const [date, setDate] = useState(new Date(defaultDateOfBirth));
   const [showModal, setShowModal] = useState(false);
+  const [secured, setSecured] = useState(true);
+  const [secured2, setSecured2] = useState(true);
+
   const { data, isPending, isError, refetch, isPaused } = useStates();
   const [show, setShow] = useState(false);
   const {
@@ -378,6 +381,9 @@ const signUp = (props: Props) => {
               value={password}
               placeholder="Password"
               onChangeText={handleChange('password')}
+              password
+              secured={secured}
+              setSecured={setSecured}
             />
             {touched.password && errors.password && (
               <Text style={{ color: 'red', fontWeight: 'bold' }}>
@@ -390,6 +396,9 @@ const signUp = (props: Props) => {
               value={confirmPassword}
               placeholder="Confirm Password"
               onChangeText={handleChange('confirmPassword')}
+              password
+              secured={secured2}
+              setSecured={setSecured2}
             />
             {touched.confirmPassword && errors.confirmPassword && (
               <Text style={{ color: 'red', fontWeight: 'bold' }}>

@@ -1,4 +1,4 @@
-import { View, Text, FlatList, Pressable } from 'react-native';
+import { FlatList, Pressable } from 'react-native';
 import React from 'react';
 import { Container } from '@/components/ui/Container';
 import { NavHeader } from '@/components/ui/NavHeader';
@@ -12,7 +12,6 @@ import { Cat } from '@/lib/@types';
 import { MyText } from '@/components/ui/MyText';
 import Animated, { SlideInLeft, SlideInRight } from 'react-native-reanimated';
 import { useTest } from '@/lib/zustand/useTest';
-import { TestModal } from '@/components/modals/TestModal';
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
@@ -43,7 +42,7 @@ const test = () => {
         showsVerticalScrollIndicator={false}
         keyExtractor={(item) => item?.categoryname}
         ListEmptyComponent={<EmptyText text="No Categories found" />}
-        contentContainerStyle={{ paddingBottom: 20, gap: 10 }}
+        contentContainerStyle={{ paddingBottom: 20, gap: 20 }}
       />
     </Container>
   );
@@ -69,7 +68,10 @@ const CatItem = ({
   return (
     <AnimatedPressable
       onPress={onPress}
-      style={({ pressed }) => ({ opacity: pressed ? 0.5 : 1 })}
+      style={({ pressed }) => ({
+        opacity: pressed ? 0.5 : 1,
+        marginBottom: 15,
+      })}
       entering={AnimateMotion.springify().delay(200).damping(20)}
     >
       <CardCase>

@@ -7,6 +7,8 @@ import { MyText } from './MyText';
 import { useRouter } from 'expo-router';
 import { useUser } from '@/lib/zustand/useUser';
 import { useAuth } from '@/lib/zustand/auth';
+import { useDelete } from '@/lib/zustand/useOpenDelete';
+import { DeleteModal } from './Modals/deleteModal';
 
 type Props = {};
 
@@ -16,6 +18,7 @@ export const MoreLinks = ({}: Props): JSX.Element => {
       {profileLinks.map((item, i) => (
         <LinkItem key={i} item={item} />
       ))}
+      <DeleteModal />
     </VStack>
   );
 };
@@ -34,6 +37,7 @@ type ItemType = {
 const LinkItem = ({ item }: ItemType) => {
   const { clearUser } = useUser();
   const { clearUser: clearId } = useAuth();
+  const { onOpen } = useDelete();
   const router = useRouter();
   const logout = () => {
     clearId();
@@ -43,12 +47,17 @@ const LinkItem = ({ item }: ItemType) => {
   const onPress = () => {
     if (item?.link) {
       router.push(item.link);
-    } else {
+    } else if (item.name === 'trash') {
+      onOpen();
+    } else if (item.name === 'log-out') {
       logout();
     }
   };
 
-  const color = item.name === 'log-out' ? colors.red : colors.green;
+  const color =
+    item.name === 'log-out' || item.name === 'trash'
+      ? colors.red
+      : colors.green;
   return (
     <ListItem containerStyle={styles.container} onPress={onPress}>
       <Icon name={item.name} type="feather" color={color} size={30} />

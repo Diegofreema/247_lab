@@ -9,27 +9,26 @@ import Modal from 'react-native-modal';
 import { MyText } from '../MyText';
 import { MyButton } from '../MyButton';
 import { HStack } from '@gluestack-ui/themed';
-type Props = {
-  onPress: () => void;
-  isPending: boolean;
-  isVisible: boolean;
+import { useDelete } from '@/lib/zustand/useOpenDelete';
+import { useDeleteAccount } from '@/lib/tanstack/mutation';
+type Props = {};
 
-  onDelete: () => void;
-};
-
-export const DeleteModal = ({
-  isVisible,
-  isPending,
-  onPress,
-  onDelete,
-}: Props): JSX.Element => {
+export const DeleteModal = ({}: Props): JSX.Element => {
   const { width } = useWindowDimensions();
+  const { isOpen, onClose } = useDelete();
+  const { mutateAsync, isPending } = useDeleteAccount();
+  const onPress = () => {
+    onClose();
+  };
 
+  const onDelete = async () => {
+    await mutateAsync();
+  };
   const finalWidth = width - 100;
   return (
     <View>
       <Modal
-        isVisible={isVisible}
+        isVisible={isOpen}
         style={{ justifyContent: 'center', alignItems: 'center' }}
       >
         <View

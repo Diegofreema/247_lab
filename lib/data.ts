@@ -19,4 +19,9 @@ export const profileLinks = [
 
     label: 'Log out',
   },
+  {
+    name: 'trash',
+
+    label: 'Delete Profile',
+  },
 ];

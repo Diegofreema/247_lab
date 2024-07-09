@@ -19,7 +19,10 @@
       "channel": "preview"
     },
     "production": {
-      "channel": "production"
+      "channel": "production",
+      "env": {
+        "EXPO_PUBLIC_URL": "https://247labapi.netpro.software/api.aspx?"
+      }
     }
   },
   "submit": {

@@ -1,28 +1,13 @@
-import { FlatList, StyleSheet, Text } from 'react-native';
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import { FlatList, StyleSheet } from 'react-native';
+import React, { useCallback, useEffect, useRef } from 'react';
 import { Container } from '@/components/ui/Container';
 import { Redirect, router, useLocalSearchParams } from 'expo-router';
 import { useTestFetch } from '@/lib/tanstack/queries';
 import { ErrorComponent } from '@/components/ui/Error';
 import { Loading } from '@/components/ui/Loading';
 import { EmptyText } from '@/components/ui/EmptyText';
-import { Test } from '@/lib/@types';
-import { CardCase } from '@/components/ui/Card';
 import { NavHeader } from '@/components/ui/NavHeader';
-import { MyText } from '@/components/ui/MyText';
-import { HStack } from '@gluestack-ui/themed';
-import { Switch } from 'react-native-paper';
-import { Divider } from '@rneui/themed';
-import { MyButton } from '@/components/ui/MyButton';
 import { Value, useBookMutation } from '@/lib/tanstack/mutation';
-import { useAuth } from '@/lib/zustand/auth';
-import Animated, { SlideInLeft, SlideInRight } from 'react-native-reanimated';
 import { BookItem } from '@/components/ui/BookItem';
 import { Paystack, paystackProps } from 'react-native-paystack-webview';
 import Toast from 'react-native-toast-message';
@@ -73,7 +58,7 @@ const Book = () => {
     <Container>
       <NavHeader title="Select Test" />
       <Paystack
-        paystackKey="pk_test_ed76c81770ed30bfd8734bd6086aa6e2e2057088"
+        paystackKey="pk_live_34dcb421bb4e9e6f20fdf2c993f2b44c9e436fbe"
         billingEmail={`${email}.com`}
         amount={totalCost}
         channels={[
@@ -121,7 +106,7 @@ const Book = () => {
         showsVerticalScrollIndicator={false}
         keyExtractor={(item) => item?.id}
         ListEmptyComponent={<EmptyText text="No test found" />}
-        contentContainerStyle={{ paddingBottom: 20, gap: 10 }}
+        contentContainerStyle={{ paddingBottom: 20, gap: 20 }}
       />
     </Container>
   );

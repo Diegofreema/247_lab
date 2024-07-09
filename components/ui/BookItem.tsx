@@ -28,6 +28,7 @@ export const BookItem = ({
   const testName = item?.test.split('- N')[0];
   const basePrice = +item?.cost;
   const homeServiceFee = item?.logistics ? +item.logistics : 0;
+  console.log(item);
 
   const finalPrice = useMemo(() => {
     if (selected) {
@@ -59,14 +60,16 @@ export const BookItem = ({
       <CardCase gap={10}>
         <TestItem title={testName} subTitle={'Test'} />
         <TestItem title={`₦${basePrice}`} subTitle={'Base Price'} />
-
-        {item?.logistics && (
+        {item?.homeservice === 'Available' && (
           <TestItem title={`₦${item?.logistics}`} subTitle={'Home service'} />
         )}
-        <HStack justifyContent="space-between" alignItems="center">
-          <MyText text={'Accept home service'} style={{ color: 'black' }} />
-          <Switch value={selected} onValueChange={onToggleHomeService} />
-        </HStack>
+
+        {item?.homeservice === 'Available' && (
+          <HStack justifyContent="space-between" alignItems="center">
+            <MyText text={'Accept home service'} style={{ color: 'black' }} />
+            <Switch value={selected} onValueChange={onToggleHomeService} />
+          </HStack>
+        )}
         <Divider style={{ marginVertical: 10 }} />
         <TestItem title={`₦${finalPrice}`} subTitle={'Total Price'} />
         <MyButton text="Proceed" onPress={onBook} loading={isLoading} />

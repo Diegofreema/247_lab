@@ -152,6 +152,12 @@ export const useResults = () => {
 };
 export const useTestFetch = (branchId: string, cat: string) => {
   const { id } = useAuth();
+  console.log({
+    id,
+    branchId,
+    cat,
+  });
+
   const getTests = async () => {
     const response = await axios.get(
       `${api}api=gettest&patientid=${id}&branchid=${branchId}&testcategoryid=${cat}`

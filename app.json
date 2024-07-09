@@ -2,7 +2,7 @@
   "expo": {
     "name": "247lab",
     "slug": "247lab",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/images/app-icon.png",
     "scheme": "com.app.247lab",
@@ -14,14 +14,18 @@
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "buildNumber": "1.0.0",
+      "runtimeVersion": "1.0.0"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/app-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "eyrr.aasdd_trbac.r"
+      "package": "eyrr.aasdd_trbac.r",
+      "versionCode": 2,
+      "runtimeVersion": "1.0.1"
     },
     "web": {
       "bundler": "metro",
