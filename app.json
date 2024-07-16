@@ -1,10 +1,10 @@
 {
   "expo": {
-    "name": "247lab",
+    "name": "247 Lab",
     "slug": "247lab",
     "version": "1.0.1",
     "orientation": "portrait",
-    "icon": "./assets/images/app-icon.png",
+    "icon": "./assets/images/icon.png",
     "scheme": "com.app.247lab",
     "userInterfaceStyle": "automatic",
     "splash": {
@@ -20,7 +20,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/app-icon.png",
+        "foregroundImage": "./assets/images/icon.png",
         "backgroundColor": "#ffffff"
       },
       "package": "eyrr.aasdd_trbac.r",
