@@ -1,19 +1,13 @@
-import React, { useMemo } from 'react';
-import { useAuth } from '@/lib/zustand/auth';
 import { Container } from '@/components/ui/Container';
+import { ErrorComponent } from '@/components/ui/Error';
+import { Banner } from '@/components/ui/home/Banner';
+import { BottomFlatList } from '@/components/ui/home/Bottom';
+import { Branches } from '@/components/ui/home/Branches';
 import { ProfileHeader } from '@/components/ui/home/ProfileHeader';
 import { Loading } from '@/components/ui/Loading';
-import { Banner } from '@/components/ui/home/Banner';
-import { TestCat, TestSkeleton } from '@/components/ui/home/TestCat';
-import {
-  useGetServices,
-  useLabs,
-  useProfile,
-  useResults,
-} from '@/lib/tanstack/queries';
-import { ErrorComponent } from '@/components/ui/Error';
-import { Branches } from '@/components/ui/home/Branches';
-import { BottomFlatList } from '@/components/ui/home/Bottom';
+import { useLabs, useProfile, useResults } from '@/lib/tanstack/queries';
+import { useAuth } from '@/lib/zustand/auth';
+import React from 'react';
 
 type Props = {};
 
@@ -21,6 +15,8 @@ const home = (props: Props) => {
   const { id } = useAuth();
 
   const { data, isError, isPaused, refetch, isPending } = useProfile();
+  console.log(data);
+
   const {
     data: results,
     isError: isErrorResults,

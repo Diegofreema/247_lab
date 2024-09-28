@@ -1,21 +1,20 @@
-import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
-import React, { useState } from 'react';
-import { Link, useRouter } from 'expo-router';
-import { VStack } from '@gluestack-ui/themed';
-import { NavHeader } from '@/components/ui/NavHeader';
-import { Container } from '@/components/ui/Container';
 import { BoldHeader } from '@/components/ui/BoldHeader';
+import { Container } from '@/components/ui/Container';
 import { TextInput } from '@/components/ui/TextInput';
+import { VStack } from '@gluestack-ui/themed';
+import { useRouter } from 'expo-router';
+import React, { useState } from 'react';
+import { Pressable, ScrollView, StyleSheet, Text } from 'react-native';
 
-import { MyButton } from '@/components/ui/MyButton';
-import * as yup from 'yup';
-import { useFormik } from 'formik';
-import axios from 'axios';
-import { api } from '@/lib/helper';
-import Toast from 'react-native-toast-message';
 import { LoadingComponent } from '@/components/ui/Modals/LoadingModal';
-import { useAuth } from '@/lib/zustand/auth';
+import { MyButton } from '@/components/ui/MyButton';
 import { colors } from '@/constants';
+import { api } from '@/lib/helper';
+import { useAuth } from '@/lib/zustand/auth';
+import axios from 'axios';
+import { useFormik } from 'formik';
+import Toast from 'react-native-toast-message';
+import * as yup from 'yup';
 type Props = {};
 const validationSchema = yup.object().shape({
   email: yup.string().required('Full name is required'),
@@ -68,6 +67,7 @@ const Login = (props: Props) => {
             text2: `Welcome back`,
             position: 'top',
           });
+          resetForm();
           router.push('/home');
         }
       } catch (error) {
@@ -94,7 +94,7 @@ const Login = (props: Props) => {
       <LoadingComponent isLoading={isSubmitting} />
       <ScrollView
         showsVerticalScrollIndicator={false}
-        style={{ flex: 1 }}
+        style={{ flex: 1, backgroundColor: 'white' }}
         contentContainerStyle={{ flexGrow: 1, paddingBottom: 20 }}
       >
         <Container>

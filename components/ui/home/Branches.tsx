@@ -1,5 +1,5 @@
-import { Box, HStack } from '@gluestack-ui/themed';
-import { StyleSheet, View, Text, FlatList, Pressable } from 'react-native';
+import { Box } from '@gluestack-ui/themed';
+import { FlatList, Pressable } from 'react-native';
 import { MyText } from '../MyText';
 import { colors } from '@/constants';
 import { LabBranch } from '@/lib/@types';
@@ -7,7 +7,7 @@ import { EmptyText } from '../EmptyText';
 import { CardCase } from '../Card';
 import { useUser } from '@/lib/zustand/useUser';
 import Animated, { SlideInLeft, SlideInRight } from 'react-native-reanimated';
-import { Link, router } from 'expo-router';
+import { router, usePathname } from 'expo-router';
 import { SeeAll } from './SeeAll';
 type Props = {
   labs: LabBranch[];
@@ -47,8 +47,6 @@ export const Branches = ({ labs }: Props): JSX.Element => {
   );
 };
 
-const styles = StyleSheet.create({});
-
 export const BranchItem = ({
   item,
   index,
@@ -60,11 +58,13 @@ export const BranchItem = ({
   const onPress = () => {
     router.push(`/test?id=${item?.id}`);
   };
+  const pathname = usePathname();
+  const isHome = pathname === '/home';
   return (
     <AnimatedPressable
       onPress={onPress}
       entering={AnimateMotion.delay(500).springify().damping(20)}
-      style={{ flex: 1 }}
+      style={{ width: isHome ? '48%' : '100%' }}
     >
       <CardCase flex={1}>
         <MyText

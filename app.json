@@ -2,7 +2,7 @@
   "expo": {
     "name": "247 Lab",
     "slug": "247lab",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "com.app.247lab",
@@ -24,8 +24,8 @@
         "backgroundColor": "#ffffff"
       },
       "package": "eyrr.aasdd_trbac.r",
-      "versionCode": 2,
-      "runtimeVersion": "1.0.1"
+      "versionCode": 3,
+      "runtimeVersion": "1.0.2"
     },
     "web": {
       "bundler": "metro",

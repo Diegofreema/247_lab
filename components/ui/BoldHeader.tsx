@@ -1,6 +1,13 @@
 import { colors } from '@/constants';
 import { VStack } from '@gluestack-ui/themed';
-import { StyleSheet, Text, StyleProp, TextStyle } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  StyleProp,
+  TextStyle,
+  useWindowDimensions,
+} from 'react-native';
+import { RFValue } from 'react-native-responsive-fontsize';
 
 type Props = {
   text: string;
@@ -9,9 +16,15 @@ type Props = {
 };
 
 export const BoldHeader = ({ text, subText, style }: Props): JSX.Element => {
+  const { height } = useWindowDimensions();
   return (
     <VStack gap={10}>
-      <Text style={[{ fontFamily: 'PoppinsBold', fontSize: 23 }, style]}>
+      <Text
+        style={[
+          { fontFamily: 'PoppinsBold', fontSize: RFValue(23, height) },
+          style,
+        ]}
+      >
         {' '}
         {text}
       </Text>
@@ -20,7 +33,7 @@ export const BoldHeader = ({ text, subText, style }: Props): JSX.Element => {
           style={[
             {
               fontFamily: 'Poppins',
-              fontSize: 12,
+              fontSize: RFValue(13, height),
               color: colors.grey,
             },
             style,
