@@ -1,9 +1,7 @@
-import { StyleSheet, Text, View } from 'react-native';
 import React, { useEffect } from 'react';
 import { Redirect, Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { useAuth } from '@/lib/zustand/auth';
-import { NavHeader } from '@/components/ui/NavHeader';
 
 type Props = {};
 
@@ -28,5 +26,3 @@ const AuthLayout = (props: Props) => {
 };
 
 export default AuthLayout;
-
-const styles = StyleSheet.create({});

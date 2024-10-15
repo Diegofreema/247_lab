@@ -9,7 +9,7 @@ export const BottomEmpty = () => {
   const { width } = useWindowDimensions();
   return (
     <Animated.View
-      entering={ZoomInUp.springify().damping(5)}
+      entering={ZoomInUp.springify().damping(80).stiffness(200)}
       style={{ width: width * 0.9, alignItems: 'center', marginTop: 30 }}
     >
       <MyText

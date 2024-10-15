@@ -44,6 +44,32 @@ const toastConfig = {
     />
   ),
 
+  /*************  ✨ Codeium Command ⭐  *************/
+  /**
+   * Customizes the appearance of error toasts.
+   *
+   * @param {object} props Props forwarded from `react-native-toast-message`.
+   * @returns {React.ReactElement} The customized error toast component.
+   *
+   * @example
+   * const toastConfig = {
+   *   error: ({ text1, text2, ...props }) => (
+   *     <ErrorToast
+   *       {...props}
+   *       text1Style={{
+   *         fontSize: 17,
+   *       }}
+   *       text2Style={{
+   *         fontSize: 15,
+   *       }}
+   *     >
+   *       {text1}
+   *       {text2}
+   *     </ErrorToast>
+   *   ),
+   * };
+   */
+  /******  0f9b39ad-d455-4504-9a6a-3575c7e8cbf2  *******/
   error: (props: any) => (
     <ErrorToast
       {...props}

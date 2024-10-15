@@ -15,8 +15,9 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "buildNumber": "1.0.0",
-      "runtimeVersion": "1.0.0"
+
+      "runtimeVersion": "1.0.0",
+      "bundleIdentifier": "com.diegodark.247lab"
     },
     "android": {
       "adaptiveIcon": {
@@ -24,7 +25,6 @@
         "backgroundColor": "#ffffff"
       },
       "package": "eyrr.aasdd_trbac.r",
-      "versionCode": 3,
       "runtimeVersion": "1.0.2"
     },
     "web": {

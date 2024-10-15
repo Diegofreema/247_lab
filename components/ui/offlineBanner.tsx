@@ -17,6 +17,7 @@ export function OfflineBanner() {
   const netinfo = useNetInfo();
   const insets = useSafeAreaInsets();
   const height = useSharedValue(0);
+  const opacity = useSharedValue(0);
 
   const isOffline = netinfo.isInternetReachable === false;
   const maxHeight = 28 + insets.bottom / 2;
@@ -24,8 +25,10 @@ export function OfflineBanner() {
   useEffect(() => {
     if (isOffline) {
       height.value = withTiming(maxHeight);
+      opacity.value = withTiming(1);
     } else {
       height.value = withTiming(minHeight);
+      opacity.value = withTiming(0);
     }
   }, [isOffline, height, maxHeight]);
 
@@ -36,6 +39,7 @@ export function OfflineBanner() {
       [minHeight, maxHeight],
       [minHeight, -insets.bottom + 4]
     ),
+    opacity: opacity.value,
   }));
 
   return (

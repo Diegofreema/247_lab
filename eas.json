@@ -1,6 +1,7 @@
 {
   "cli": {
-    "version": ">= 9.0.7"
+    "version": ">= 9.0.7",
+    "appVersionSource": "remote"
   },
   "build": {
     "development": {
@@ -22,7 +23,8 @@
       "channel": "production",
       "env": {
         "EXPO_PUBLIC_URL": "https://247labapi.netpro.software/api.aspx?"
-      }
+      },
+      "autoIncrement": true
     }
   },
   "submit": {

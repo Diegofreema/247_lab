@@ -13,6 +13,7 @@ export const ProfileHeader = ({ user }: Props): JSX.Element => {
   const { fname, lname } = user;
   const firstLetter = fname?.charAt(0).toUpperCase();
   const lastLetter = lname?.charAt(0).toUpperCase();
+
   return (
     <Link href="/profile" asChild>
       <Pressable style={({ pressed }) => ({ opacity: pressed ? 0.5 : 1 })}>
