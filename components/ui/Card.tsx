@@ -1,6 +1,5 @@
-import { Box, Card } from '@gluestack-ui/themed';
-import { StyleSheet, View, Text } from 'react-native';
-import { colors } from '../../constants';
+import { Card } from "@gluestack-ui/themed";
+import { colors } from "../../constants";
 
 type Props = {
   children: React.ReactNode;
@@ -16,5 +15,3 @@ export const CardCase = ({ children, mt, flex, gap }: Props): JSX.Element => {
     </Card>
   );
 };
-
-const styles = StyleSheet.create({});

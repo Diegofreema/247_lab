@@ -1,16 +1,15 @@
-import * as Haptics from 'expo-haptics';
+import * as Haptics from "expo-haptics";
 import {
   AccessibilityState,
   GestureResponderEvent,
-  Platform,
   Pressable,
   StyleSheet,
-} from 'react-native';
+} from "react-native";
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withSpring,
-} from 'react-native-reanimated';
+} from "react-native-reanimated";
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
@@ -61,7 +60,7 @@ export function TabBarButton({
 const styles = StyleSheet.create({
   pressable: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
 });

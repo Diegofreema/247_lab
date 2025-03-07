@@ -1,4 +1,4 @@
-import { StyleSheet, Text, StyleProp, TextStyle } from 'react-native';
+import { StyleProp, Text, TextStyle } from "react-native";
 
 type Props = {
   text?: string | number;
@@ -7,10 +7,8 @@ type Props = {
 
 export const MyText = ({ text, style }: Props): JSX.Element => {
   return (
-    <Text style={[{ fontFamily: 'Poppins', color: 'white' }, style]}>
+    <Text style={[{ fontFamily: "Poppins", color: "white" }, style]}>
       {text}
     </Text>
   );
 };
-
-const styles = StyleSheet.create({});

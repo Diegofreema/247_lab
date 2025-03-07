@@ -1,6 +1,5 @@
-import { create } from 'zustand';
-import * as SecureStore from 'expo-secure-store';
-import { UserType } from '../@types';
+import { create } from "zustand";
+import * as SecureStore from "expo-secure-store";
 
 type Props = {
   id?: string;
@@ -8,24 +7,24 @@ type Props = {
   setUser: (id: string) => void;
   clearUser: () => void;
 };
-const id = SecureStore.getItem('id') || '';
+const id = SecureStore.getItem("id") || "";
 export const useAuth = create<Props>((set) => ({
   id,
   getUser: () => {
-    const storedId = SecureStore.getItem('id');
+    const storedId = SecureStore.getItem("id");
 
     if (storedId) {
       set({ id: storedId });
     } else {
-      set({ id: '' });
+      set({ id: "" });
     }
   },
   setUser: (id: string) => {
     set({ id });
-    SecureStore.setItem('id', id);
+    SecureStore.setItem("id", id);
   },
   clearUser: async () => {
-    set({ id: '' });
-    await SecureStore.deleteItemAsync('id');
+    set({ id: "" });
+    await SecureStore.deleteItemAsync("id");
   },
 }));

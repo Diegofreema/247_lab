@@ -51,7 +51,7 @@ export type Results = {
   branch: string;
   TestRef: string;
   Datex: string;
-  status: 'Ready' | 'Pending';
+  status: "Ready" | "Pending";
   download: string;
   color: string;
   ref: string;
@@ -62,6 +62,6 @@ export type Test = {
   logistics: string;
   test: string;
   id: string;
-  homeservice: 'Unavailable' | 'Available';
+  homeservice: "Unavailable" | "Available";
   cost: string;
 };

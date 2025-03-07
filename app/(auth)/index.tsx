@@ -1,24 +1,24 @@
-import { BoldHeader } from '@/components/ui/BoldHeader';
-import { Container } from '@/components/ui/Container';
-import { TextInput } from '@/components/ui/TextInput';
-import { VStack } from '@gluestack-ui/themed';
-import { useRouter } from 'expo-router';
-import React, { useState } from 'react';
-import { Pressable, ScrollView, StyleSheet, Text } from 'react-native';
+import { BoldHeader } from "@/components/ui/BoldHeader";
+import { Container } from "@/components/ui/Container";
+import { TextInput } from "@/components/ui/TextInput";
+import { VStack } from "@gluestack-ui/themed";
+import { useRouter } from "expo-router";
+import React, { useState } from "react";
+import { Pressable, ScrollView, StyleSheet, Text } from "react-native";
 
-import { LoadingComponent } from '@/components/ui/Modals/LoadingModal';
-import { MyButton } from '@/components/ui/MyButton';
-import { colors } from '@/constants';
-import { api } from '@/lib/helper';
-import { useAuth } from '@/lib/zustand/auth';
-import axios from 'axios';
-import { useFormik } from 'formik';
-import Toast from 'react-native-toast-message';
-import * as yup from 'yup';
+import { LoadingComponent } from "@/components/ui/Modals/LoadingModal";
+import { MyButton } from "@/components/ui/MyButton";
+import { colors } from "@/constants";
+import { api } from "@/lib/helper";
+import { useAuth } from "@/lib/zustand/auth";
+import axios from "axios";
+import { useFormik } from "formik";
+import Toast from "react-native-toast-message";
+import * as yup from "yup";
 type Props = {};
 const validationSchema = yup.object().shape({
-  email: yup.string().required('Full name is required'),
-  password: yup.string().required('Password is required'),
+  email: yup.string().required("Full name is required"),
+  password: yup.string().required("Password is required"),
 });
 const Login = (props: Props) => {
   const router = useRouter();
@@ -34,27 +34,27 @@ const Login = (props: Props) => {
     isSubmitting,
   } = useFormik({
     initialValues: {
-      email: '',
-      password: '',
+      email: "",
+      password: "",
     },
     validationSchema,
     onSubmit: async (values) => {
-      console.log('🚀 ~ onSubmit: ~ values:', values);
+      console.log("🚀 ~ onSubmit: ~ values:", values);
       const formattedPassword = values.password
-        .replace(/[#?\/\\%&]/g, '')
-        .replace(/:/g, '');
+        .replace(/[#?\/\\%&]/g, "")
+        .replace(/:/g, "");
       try {
         const { data } = await axios.get(
-          `${api}api=patientlogin&email=${values.email}&pasword=${formattedPassword}`
+          `${api}api=patientlogin&email=${values.email}&pasword=${formattedPassword}`,
         );
-        console.log(data, 'sent data');
+        console.log(data, "sent data");
 
-        if (data.result === 'incorrect email or password') {
+        if (data.result === "incorrect email or password") {
           Toast.show({
-            type: 'transparentToast',
-            text1: 'Please try again',
-            text2: 'Incorrect credentials',
-            position: 'top',
+            type: "transparentToast",
+            text1: "Please try again",
+            text2: "Incorrect credentials",
+            position: "top",
           });
           return;
         }
@@ -62,31 +62,31 @@ const Login = (props: Props) => {
         if (data?.patientid) {
           setUser(data?.patientid);
           Toast.show({
-            type: 'transparentToast',
-            text1: 'Login Successful',
+            type: "transparentToast",
+            text1: "Login Successful",
             text2: `Welcome back`,
-            position: 'top',
+            position: "top",
           });
           resetForm();
-          router.push('/home');
+          router.push("/home");
         }
       } catch (error) {
-        console.log(error, 'error from form');
+        console.log(error, "error from form");
         Toast.show({
-          type: 'transparentToast',
-          text1: 'Please try again',
-          text2: 'Something went wrong',
-          position: 'top',
+          type: "transparentToast",
+          text1: "Please try again",
+          text2: "Something went wrong",
+          position: "top",
         });
       }
     },
   });
   const navigate = () => {
-    router.push('/sign-up');
+    router.push("/sign-up");
   };
 
   const { email, password } = values;
-  console.log('🚀 ~ Login ~ email:', email, password);
+  console.log("🚀 ~ Login ~ email:", email, password);
   console.log(errors);
 
   return (
@@ -94,7 +94,7 @@ const Login = (props: Props) => {
       <LoadingComponent isLoading={isSubmitting} />
       <ScrollView
         showsVerticalScrollIndicator={false}
-        style={{ flex: 1, backgroundColor: 'white' }}
+        style={{ flex: 1, backgroundColor: "white" }}
         contentContainerStyle={{ flexGrow: 1, paddingBottom: 20 }}
       >
         <Container>
@@ -111,12 +111,12 @@ const Login = (props: Props) => {
                 keyboardType="email-address"
                 value={email}
                 placeholder="Email"
-                onChangeText={handleChange('email')}
+                onChangeText={handleChange("email")}
                 autoCapitalize="none"
               />
 
               {errors.email && touched.email && (
-                <Text style={{ color: 'red' }}>{errors.email}</Text>
+                <Text style={{ color: "red" }}>{errors.email}</Text>
               )}
             </>
 
@@ -125,19 +125,19 @@ const Login = (props: Props) => {
                 value={password}
                 secureTextEntry={secured}
                 placeholder="Password"
-                onChangeText={handleChange('password')}
+                onChangeText={handleChange("password")}
                 password
                 secured={secured}
                 setSecured={setSecured}
               />
 
               {errors.password && touched.password && (
-                <Text style={{ color: 'red' }}>{errors.password}</Text>
+                <Text style={{ color: "red" }}>{errors.password}</Text>
               )}
             </>
 
             <Pressable
-              onPress={() => router.push('/forgot')}
+              onPress={() => router.push("/forgot")}
               style={({ pressed }) => [
                 styles.textContainer,
                 { opacity: pressed ? 0.5 : 1 },
@@ -149,7 +149,7 @@ const Login = (props: Props) => {
             <MyButton
               loading={isSubmitting}
               onPress={() => handleSubmit()}
-              text={isSubmitting ? 'Logging in...' : 'Log In'}
+              text={isSubmitting ? "Logging in..." : "Log In"}
             />
 
             <Pressable
@@ -160,7 +160,7 @@ const Login = (props: Props) => {
               ]}
             >
               <Text style={styles.createAccountText}>
-                Don’t have an account?{' '}
+                Don’t have an account?{" "}
                 <Text style={styles.text}>Create Account</Text>
               </Text>
             </Pressable>
@@ -176,13 +176,13 @@ export default Login;
 const styles = StyleSheet.create({
   text: {
     color: colors.green,
-    fontFamily: 'Poppins',
+    fontFamily: "Poppins",
   },
   textContainer: {
-    alignSelf: 'flex-end',
+    alignSelf: "flex-end",
   },
   createAccountText: {
-    fontFamily: 'Poppins',
-    textAlign: 'center',
+    fontFamily: "Poppins",
+    textAlign: "center",
   },
 });

@@ -1,11 +1,8 @@
-import { StyleSheet } from 'react-native';
-import React, { useEffect } from 'react';
-import { Redirect, Stack } from 'expo-router';
-import { useAuth } from '@/lib/zustand/auth';
-import { StatusBar } from 'expo-status-bar';
-type Props = {};
+import React from "react";
+import { Stack } from "expo-router";
+import { StatusBar } from "expo-status-bar";
 
-const Layout = (props: Props) => {
+const Layout = () => {
   return (
     <>
       <StatusBar style="dark" />
@@ -15,5 +12,3 @@ const Layout = (props: Props) => {
 };
 
 export default Layout;
-
-const styles = StyleSheet.create({});

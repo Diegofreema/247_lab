@@ -1,13 +1,13 @@
-import { Value } from '@/lib/tanstack/mutation';
-import { useAuth } from '@/lib/zustand/auth';
-import { useMemo, useState } from 'react';
-import Animated, { SlideInLeft, SlideInRight } from 'react-native-reanimated';
-import { CardCase } from './Card';
-import { HStack } from '@gluestack-ui/themed';
-import { MyText } from './MyText';
-import { Divider, Switch } from 'react-native-paper';
-import { MyButton } from './MyButton';
-import { Test } from '@/lib/@types';
+import { Value } from "@/lib/tanstack/mutation";
+import { useAuth } from "@/lib/zustand/auth";
+import { useMemo, useState } from "react";
+import Animated, { SlideInLeft, SlideInRight } from "react-native-reanimated";
+import { CardCase } from "./Card";
+import { HStack } from "@gluestack-ui/themed";
+import { MyText } from "./MyText";
+import { Divider, Switch } from "react-native-paper";
+import { MyButton } from "./MyButton";
+import { Test } from "@/lib/@types";
 
 export const BookItem = ({
   item,
@@ -25,7 +25,7 @@ export const BookItem = ({
   const [selected, setSelected] = useState(false);
   const { id } = useAuth();
   const onToggleHomeService = () => setSelected(!selected);
-  const testName = item?.test.split('- N')[0];
+  const testName = item?.test.split("- N")[0];
   const basePrice = +item?.cost;
   const homeServiceFee = item?.logistics ? +item.logistics : 0;
   console.log(item);
@@ -36,14 +36,14 @@ export const BookItem = ({
     } else {
       return basePrice;
     }
-  }, [selected]);
+  }, [selected, homeServiceFee, basePrice]);
   const logisticValue = useMemo(() => {
     if (selected) {
       return homeServiceFee;
     } else {
       return 0;
     }
-  }, [selected]);
+  }, [selected, homeServiceFee]);
   console.log({ logisticValue });
 
   const onBook = () => {
@@ -58,20 +58,20 @@ export const BookItem = ({
   return (
     <Animated.View entering={AnimationDirection}>
       <CardCase gap={10}>
-        <TestItem title={testName} subTitle={'Test'} />
-        <TestItem title={`₦${basePrice}`} subTitle={'Base Price'} />
-        {item?.homeservice === 'Available' && (
-          <TestItem title={`₦${item?.logistics}`} subTitle={'Home service'} />
+        <TestItem title={testName} subTitle={"Test"} />
+        <TestItem title={`₦${basePrice}`} subTitle={"Base Price"} />
+        {item?.homeservice === "Available" && (
+          <TestItem title={`₦${item?.logistics}`} subTitle={"Home service"} />
         )}
 
-        {item?.homeservice === 'Available' && (
+        {item?.homeservice === "Available" && (
           <HStack justifyContent="space-between" alignItems="center">
-            <MyText text={'Accept home service'} style={{ color: 'black' }} />
+            <MyText text={"Accept home service"} style={{ color: "black" }} />
             <Switch value={selected} onValueChange={onToggleHomeService} />
           </HStack>
         )}
         <Divider style={{ marginVertical: 10 }} />
-        <TestItem title={`₦${finalPrice}`} subTitle={'Total Price'} />
+        <TestItem title={`₦${finalPrice}`} subTitle={"Total Price"} />
         <MyButton text="Proceed" onPress={onBook} loading={isLoading} />
       </CardCase>
     </Animated.View>
@@ -83,11 +83,11 @@ const TestItem = ({ title, subTitle }: { title: string; subTitle: string }) => {
     <HStack justifyContent="space-between" alignItems="center">
       <MyText
         text={subTitle}
-        style={{ color: 'black', fontFamily: 'Poppins' }}
+        style={{ color: "black", fontFamily: "Poppins" }}
       />
       <MyText
         text={title}
-        style={{ color: 'black', fontFamily: 'PoppinsBold' }}
+        style={{ color: "black", fontFamily: "PoppinsBold" }}
       />
     </HStack>
   );

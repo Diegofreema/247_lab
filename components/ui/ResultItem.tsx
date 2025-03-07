@@ -1,13 +1,12 @@
-import { Results } from '@/lib/@types';
-import Animated, { SlideInLeft } from 'react-native-reanimated';
-import { CardCase } from './Card';
-import { Text, View } from 'react-native';
-import { Icon } from 'react-native-paper';
-import { VStack } from '@gluestack-ui/themed';
-import { HStack } from '@gluestack-ui/themed';
-import { MyText } from './MyText';
-import { colors } from '@/constants';
-import { Link } from 'expo-router';
+import { Results } from "@/lib/@types";
+import Animated, { SlideInLeft } from "react-native-reanimated";
+import { CardCase } from "./Card";
+import { Text, View } from "react-native";
+import { Icon } from "react-native-paper";
+import { HStack, VStack } from "@gluestack-ui/themed";
+import { MyText } from "./MyText";
+import { colors } from "@/constants";
+import { Link } from "expo-router";
 
 export const ResultItem = ({
   item,
@@ -16,21 +15,10 @@ export const ResultItem = ({
   item: Results;
   index: number;
 }) => {
-  const {
-    Datex,
-    TestRef,
-    branch,
-    branchaddress,
-    color,
-    download,
-    fileext,
-    ref,
-    status,
-    test,
-  } = item;
+  const { Datex, ref, status, test } = item;
 
-  const statusColor = status === 'Pending' ? 'orange' : 'green';
-  const formattedTest = test?.split('-')[1] + `${test?.split('-')[2] || ''}`;
+  const statusColor = status === "Pending" ? "orange" : "green";
+  const formattedTest = test?.split("-")[1] + `${test?.split("-")[2] || ""}`;
   return (
     <Animated.View
       entering={SlideInLeft.delay(500 * index)
@@ -38,8 +26,8 @@ export const ResultItem = ({
         .damping(20)}
     >
       <CardCase>
-        <View style={{ position: 'absolute', top: 17, left: 10 }}>
-          <Icon source={'eyedropper'} size={20} color={colors.green} />
+        <View style={{ position: "absolute", top: 17, left: 10 }}>
+          <Icon source={"eyedropper"} size={20} color={colors.green} />
         </View>
 
         <VStack pl={20}>
@@ -47,24 +35,24 @@ export const ResultItem = ({
             <HStack gap={5}>
               <MyText
                 text={formattedTest}
-                style={{ color: colors.black, fontFamily: 'PoppinsBold' }}
+                style={{ color: colors.black, fontFamily: "PoppinsBold" }}
               />
             </HStack>
             <MyText
               text={Datex}
-              style={{ color: colors.black, fontFamily: 'Poppins' }}
+              style={{ color: colors.black, fontFamily: "Poppins" }}
             />
           </HStack>
 
           <HStack justifyContent="space-between">
             <HStack gap={5}>
               <MyText
-                text={'Status'}
-                style={{ color: colors.black, fontFamily: 'PoppinsBold' }}
+                text={"Status"}
+                style={{ color: colors.black, fontFamily: "PoppinsBold" }}
               />
               <MyText
                 text={status}
-                style={{ color: statusColor, fontFamily: 'PoppinsBold' }}
+                style={{ color: statusColor, fontFamily: "PoppinsBold" }}
               />
             </HStack>
 
@@ -72,11 +60,11 @@ export const ResultItem = ({
               <Text
                 style={{
                   color: colors.green,
-                  fontFamily: 'Poppins',
-                  textDecorationLine: 'underline',
+                  fontFamily: "Poppins",
+                  textDecorationLine: "underline",
                 }}
               >
-                {'View details'}
+                {"View details"}
               </Text>
             </Link>
           </HStack>

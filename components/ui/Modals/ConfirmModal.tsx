@@ -1,14 +1,9 @@
-import {
-  StyleSheet,
-  View,
-  Text,
-  useWindowDimensions,
-  Image,
-} from 'react-native';
-import Modal from 'react-native-modal';
-import { MyText } from '../MyText';
-import { MyButton } from '../MyButton';
-import { colors } from '@/constants';
+import { Image, useWindowDimensions, View } from "react-native";
+import Modal from "react-native-modal";
+import { MyText } from "../MyText";
+import { MyButton } from "../MyButton";
+import { colors } from "@/constants";
+
 type Props = {
   onPress: () => void;
   name: string;
@@ -26,13 +21,13 @@ export const ConfirmModal = ({
     <View>
       <Modal
         isVisible={isVisible}
-        style={{ justifyContent: 'center', alignItems: 'center' }}
+        style={{ justifyContent: "center", alignItems: "center" }}
       >
         <View
           style={{
-            backgroundColor: 'white',
+            backgroundColor: "white",
             padding: 40,
-            alignItems: 'center',
+            alignItems: "center",
             gap: 10,
             width: finalWidth,
             height: finalWidth,
@@ -40,19 +35,19 @@ export const ConfirmModal = ({
           }}
         >
           <Image
-            source={require('../../../assets/images/confirm.png')}
+            source={require("../../../assets/images/confirm.png")}
             style={{ width: 60, height: 60 }}
             resizeMode="contain"
           />
           <MyText
-            style={{ fontFamily: 'PoppinsBold', fontSize: 18, color: 'black' }}
+            style={{ fontFamily: "PoppinsBold", fontSize: 18, color: "black" }}
             text="Account Created"
           />
           <MyText
             style={{
-              fontFamily: 'Poppins',
+              fontFamily: "Poppins",
               fontSize: 13,
-              textAlign: 'center',
+              textAlign: "center",
               color: colors.black,
             }}
             text={`Welcome to 247Lab`}
@@ -64,5 +59,3 @@ export const ConfirmModal = ({
     </View>
   );
 };
-
-const styles = StyleSheet.create({});

@@ -1,13 +1,12 @@
-import { HStack } from '@gluestack-ui/themed';
-import { StyleSheet, View, Text } from 'react-native';
-import { MyText } from '../MyText';
-import { colors } from '@/constants';
-import { Link } from 'expo-router';
-import { ExpoRouter } from 'expo-router/types/expo-router';
+import { HStack } from "@gluestack-ui/themed";
+import { Text } from "react-native";
+import { MyText } from "../MyText";
+import { colors } from "@/constants";
+import { Href, Link } from "expo-router";
 
 type Props = {
   heading: string;
-  link: ExpoRouter.Href;
+  link: Href;
   hide?: boolean;
 };
 
@@ -18,13 +17,13 @@ export const SeeAll = ({ heading, link, hide }: Props): JSX.Element => {
         text={heading}
         style={{
           color: colors.black,
-          fontFamily: 'PoppinsMedium',
+          fontFamily: "PoppinsMedium",
           fontSize: 15,
         }}
       />
       {!hide && (
         <Link href={link}>
-          <Text style={{ fontFamily: 'PoppinsMedium', color: colors.green }}>
+          <Text style={{ fontFamily: "PoppinsMedium", color: colors.green }}>
             See All
           </Text>
         </Link>
@@ -32,5 +31,3 @@ export const SeeAll = ({ heading, link, hide }: Props): JSX.Element => {
     </HStack>
   );
 };
-
-const styles = StyleSheet.create({});

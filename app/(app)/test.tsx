@@ -1,25 +1,24 @@
-import { FlatList, Pressable } from 'react-native';
-import React from 'react';
-import { Container } from '@/components/ui/Container';
-import { NavHeader } from '@/components/ui/NavHeader';
-import { useLocalSearchParams, useRouter } from 'expo-router';
-import { useTestCat } from '@/lib/tanstack/queries';
-import { Loading } from '@/components/ui/Loading';
-import { ErrorComponent } from '@/components/ui/Error';
-import { CardCase } from '@/components/ui/Card';
-import { EmptyText } from '@/components/ui/EmptyText';
-import { Cat } from '@/lib/@types';
-import { MyText } from '@/components/ui/MyText';
-import Animated, { SlideInLeft, SlideInRight } from 'react-native-reanimated';
-import { useTest } from '@/lib/zustand/useTest';
+import { FlatList, Pressable } from "react-native";
+import React from "react";
+import { Container } from "@/components/ui/Container";
+import { NavHeader } from "@/components/ui/NavHeader";
+import { useLocalSearchParams, useRouter } from "expo-router";
+import { useTestCat } from "@/lib/tanstack/queries";
+import { Loading } from "@/components/ui/Loading";
+import { ErrorComponent } from "@/components/ui/Error";
+import { CardCase } from "@/components/ui/Card";
+import { EmptyText } from "@/components/ui/EmptyText";
+import { Cat } from "@/lib/@types";
+import { MyText } from "@/components/ui/MyText";
+import Animated, { SlideInLeft, SlideInRight } from "react-native-reanimated";
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
-const test = () => {
+const Page = () => {
   const { id } = useLocalSearchParams<{ id: string }>();
 
   const { data, isError, isPaused, refetch, isPending } = useTestCat(
-    id as string
+    id as string,
   );
 
   if (isError || isPaused) {
@@ -48,7 +47,7 @@ const test = () => {
   );
 };
 
-export default test;
+export default Page;
 
 const CatItem = ({
   item,
@@ -61,7 +60,6 @@ const CatItem = ({
 }) => {
   const AnimateMotion = index % 2 === 0 ? SlideInLeft : SlideInRight;
   const router = useRouter();
-  const { onOpen, getIds } = useTest();
   const onPress = () => {
     router.push(`/book?branchId=${id}&catId=${item?.categoryname}`);
   };
@@ -75,7 +73,7 @@ const CatItem = ({
       entering={AnimateMotion.springify().delay(200).damping(20)}
     >
       <CardCase>
-        <MyText text={item?.categoryname} style={{ color: 'black' }} />
+        <MyText text={item?.categoryname} style={{ color: "black" }} />
       </CardCase>
     </AnimatedPressable>
   );

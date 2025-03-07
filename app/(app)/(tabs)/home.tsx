@@ -1,17 +1,17 @@
-import { Container } from '@/components/ui/Container';
-import { ErrorComponent } from '@/components/ui/Error';
-import { Banner } from '@/components/ui/home/Banner';
-import { BottomFlatList } from '@/components/ui/home/Bottom';
-import { Branches } from '@/components/ui/home/Branches';
-import { ProfileHeader } from '@/components/ui/home/ProfileHeader';
-import { Loading } from '@/components/ui/Loading';
-import { useLabs, useProfile, useResults } from '@/lib/tanstack/queries';
-import { useAuth } from '@/lib/zustand/auth';
-import React from 'react';
+import { Container } from "@/components/ui/Container";
+import { ErrorComponent } from "@/components/ui/Error";
+import { Banner } from "@/components/ui/home/Banner";
+import { BottomFlatList } from "@/components/ui/home/Bottom";
+import { Branches } from "@/components/ui/home/Branches";
+import { ProfileHeader } from "@/components/ui/home/ProfileHeader";
+import { Loading } from "@/components/ui/Loading";
+import { useLabs, useProfile, useResults } from "@/lib/tanstack/queries";
+import { useAuth } from "@/lib/zustand/auth";
+import React from "react";
 
 type Props = {};
 
-const home = (props: Props) => {
+const Home = (props: Props) => {
   const { id } = useAuth();
 
   const { data, isError, isPaused, refetch, isPending } = useProfile();
@@ -67,4 +67,4 @@ const home = (props: Props) => {
   );
 };
 
-export default home;
+export default Home;

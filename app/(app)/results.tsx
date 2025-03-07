@@ -1,15 +1,13 @@
-import { FlatList, StyleSheet, Text, View } from 'react-native';
-import React from 'react';
-import { Container } from '@/components/ui/Container';
-import { useResults } from '@/lib/tanstack/queries';
-import { ErrorComponent } from '@/components/ui/Error';
-import { Loading } from '@/components/ui/Loading';
-import { ResultItem } from '@/components/ui/ResultItem';
-import { BottomEmpty } from '@/components/ui/home/BottomEmpty';
+import { FlatList } from "react-native";
+import React from "react";
+import { Container } from "@/components/ui/Container";
+import { useResults } from "@/lib/tanstack/queries";
+import { ErrorComponent } from "@/components/ui/Error";
+import { Loading } from "@/components/ui/Loading";
+import { ResultItem } from "@/components/ui/ResultItem";
+import { BottomEmpty } from "@/components/ui/home/BottomEmpty";
 
-type Props = {};
-
-const results = (props: Props) => {
+const Page = () => {
   const {
     data: results,
     isError: isErrorResults,
@@ -46,6 +44,4 @@ const results = (props: Props) => {
   );
 };
 
-export default results;
-
-const styles = StyleSheet.create({});
+export default Page;

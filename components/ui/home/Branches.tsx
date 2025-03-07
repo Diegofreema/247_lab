@@ -1,14 +1,14 @@
-import { Box } from '@gluestack-ui/themed';
-import { FlatList, Pressable } from 'react-native';
-import { MyText } from '../MyText';
-import { colors } from '@/constants';
-import { LabBranch } from '@/lib/@types';
-import { EmptyText } from '../EmptyText';
-import { CardCase } from '../Card';
-import { useUser } from '@/lib/zustand/useUser';
-import Animated, { SlideInLeft, SlideInRight } from 'react-native-reanimated';
-import { router, usePathname } from 'expo-router';
-import { SeeAll } from './SeeAll';
+import { Box } from "@gluestack-ui/themed";
+import { FlatList, Pressable } from "react-native";
+import { MyText } from "../MyText";
+import { colors } from "@/constants";
+import { LabBranch } from "@/lib/@types";
+import { EmptyText } from "../EmptyText";
+import { CardCase } from "../Card";
+import { useUser } from "@/lib/zustand/useUser";
+import Animated, { SlideInLeft, SlideInRight } from "react-native-reanimated";
+import { router, usePathname } from "expo-router";
+import { SeeAll } from "./SeeAll";
 type Props = {
   labs: LabBranch[];
 };
@@ -59,20 +59,20 @@ export const BranchItem = ({
     router.push(`/test?id=${item?.id}`);
   };
   const pathname = usePathname();
-  const isHome = pathname === '/home';
+  const isHome = pathname === "/home";
   return (
     <AnimatedPressable
       onPress={onPress}
       entering={AnimateMotion.delay(500).springify().damping(20)}
-      style={{ width: isHome ? '48%' : '100%' }}
+      style={{ width: isHome ? "48%" : "100%" }}
     >
       <CardCase flex={1}>
         <MyText
           text={item?.branch}
           style={{
             color: colors.black,
-            fontFamily: 'PoppinsBold',
-            textAlign: 'center',
+            fontFamily: "PoppinsBold",
+            textAlign: "center",
           }}
         />
       </CardCase>

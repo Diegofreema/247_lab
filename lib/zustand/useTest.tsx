@@ -1,4 +1,4 @@
-import { create } from 'zustand';
+import { create } from "zustand";
 
 type Store = {
   isOpen: boolean;
@@ -12,8 +12,8 @@ type Store = {
 
 export const useTest = create<Store>((set) => ({
   isOpen: false,
-  branchId: '',
-  catId: '',
+  branchId: "",
+  catId: "",
   onOpen: () => set((state) => ({ ...state, isOpen: true })),
   onClose: () =>
     set((state) => ({
@@ -24,6 +24,6 @@ export const useTest = create<Store>((set) => ({
     set((state) => ({ ...state, branchId, catId }));
   },
   clearIds: () => {
-    set((state) => ({ ...state, branchId: '', catId: '' }));
+    set((state) => ({ ...state, branchId: "", catId: "" }));
   },
 }));

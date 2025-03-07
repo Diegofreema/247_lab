@@ -1,12 +1,10 @@
-import { Image } from 'expo-image';
-import { router } from 'expo-router';
-import { StyleSheet, View, Text, Pressable } from 'react-native';
+import { Image } from "expo-image";
+import { router } from "expo-router";
+import { Pressable } from "react-native";
 
-type Props = {};
-
-export const Banner = ({}: Props): JSX.Element => {
+export const Banner = () => {
   const onPress = () => {
-    router.push('/labs');
+    router.push("/labs");
   };
   return (
     <Pressable
@@ -14,13 +12,11 @@ export const Banner = ({}: Props): JSX.Element => {
       onPress={onPress}
     >
       <Image
-        source={require('../../../assets/images/bg.png')}
-        style={{ width: '100%', height: 150, borderRadius: 10 }}
+        source={require("../../../assets/images/bg.png")}
+        style={{ width: "100%", height: 150, borderRadius: 10 }}
         contentFit="cover"
         alt="banner"
       />
     </Pressable>
   );
 };
-
-const styles = StyleSheet.create({});

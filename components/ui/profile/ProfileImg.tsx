@@ -1,8 +1,8 @@
-import { useUser } from '@/lib/zustand/useUser';
-import { StyleSheet, View, Text, ViewStyle, StyleProp } from 'react-native';
-import { MyText } from '../MyText';
-import { colors } from '@/constants';
-import { HStack } from '@gluestack-ui/themed';
+import { useUser } from "@/lib/zustand/useUser";
+import { StyleProp, StyleSheet, View, ViewStyle } from "react-native";
+import { MyText } from "../MyText";
+import { colors } from "@/constants";
+import { HStack } from "@gluestack-ui/themed";
 
 type Props = {
   containerStyle?: StyleProp<ViewStyle>;
@@ -19,7 +19,7 @@ export const ProfileImg = ({
   const lastLetter = user?.lname.charAt(0).toUpperCase();
 
   return (
-    <View style={[{ alignItems: 'center', gap: 5 }, containerStyle]}>
+    <View style={[{ alignItems: "center", gap: 5 }, containerStyle]}>
       <View style={[styles.subCon, imageStyle]}>
         <MyText text={`${firstLetter}${lastLetter}`} style={{ fontSize: 20 }} />
       </View>
@@ -28,18 +28,18 @@ export const ProfileImg = ({
           text={user?.fname.slice(0, 6)}
           style={{
             fontSize: 13,
-            color: 'black',
-            fontFamily: 'PoppinsMedium',
-            textTransform: 'capitalize',
+            color: "black",
+            fontFamily: "PoppinsMedium",
+            textTransform: "capitalize",
           }}
         />
         <MyText
           text={user?.lname.slice(0, 6)}
           style={{
             fontSize: 13,
-            color: 'black',
-            fontFamily: 'PoppinsMedium',
-            textTransform: 'capitalize',
+            color: "black",
+            fontFamily: "PoppinsMedium",
+            textTransform: "capitalize",
           }}
         />
       </HStack>
@@ -53,8 +53,8 @@ const styles = StyleSheet.create({
     width: 60,
     height: 60,
     backgroundColor: colors.green,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     lineHeight: 50,
   },
 });

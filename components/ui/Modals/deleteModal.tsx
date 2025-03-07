@@ -1,19 +1,12 @@
-import {
-  StyleSheet,
-  View,
-  Text,
-  useWindowDimensions,
-  Image,
-} from 'react-native';
-import Modal from 'react-native-modal';
-import { MyText } from '../MyText';
-import { MyButton } from '../MyButton';
-import { HStack } from '@gluestack-ui/themed';
-import { useDelete } from '@/lib/zustand/useOpenDelete';
-import { useDeleteAccount } from '@/lib/tanstack/mutation';
-type Props = {};
+import { useWindowDimensions, View } from "react-native";
+import Modal from "react-native-modal";
+import { MyText } from "../MyText";
+import { MyButton } from "../MyButton";
+import { HStack } from "@gluestack-ui/themed";
+import { useDelete } from "@/lib/zustand/useOpenDelete";
+import { useDeleteAccount } from "@/lib/tanstack/mutation";
 
-export const DeleteModal = ({}: Props): JSX.Element => {
+export const DeleteModal = (): JSX.Element => {
   const { width } = useWindowDimensions();
   const { isOpen, onClose } = useDelete();
   const { mutateAsync, isPending } = useDeleteAccount();
@@ -29,13 +22,13 @@ export const DeleteModal = ({}: Props): JSX.Element => {
     <View>
       <Modal
         isVisible={isOpen}
-        style={{ justifyContent: 'center', alignItems: 'center' }}
+        style={{ justifyContent: "center", alignItems: "center" }}
       >
         <View
           style={{
-            backgroundColor: 'white',
+            backgroundColor: "white",
             padding: 40,
-            alignItems: 'center',
+            alignItems: "center",
             gap: 10,
             width: finalWidth,
             height: finalWidth,
@@ -44,19 +37,19 @@ export const DeleteModal = ({}: Props): JSX.Element => {
         >
           <MyText
             style={{
-              fontFamily: 'PoppinsBold',
+              fontFamily: "PoppinsBold",
               fontSize: 18,
-              color: 'red',
-              textAlign: 'center',
+              color: "red",
+              textAlign: "center",
             }}
             text="This process can not be undone"
           />
           <MyText
             style={{
-              fontFamily: 'PoppinsBold',
+              fontFamily: "PoppinsBold",
               fontSize: 18,
-              color: 'black',
-              textAlign: 'center',
+              color: "black",
+              textAlign: "center",
             }}
             text="Are you sure you want to delete your profile?"
           />
@@ -67,7 +60,7 @@ export const DeleteModal = ({}: Props): JSX.Element => {
               loading={isPending}
               text="Delete"
               onPress={onDelete}
-              style={{ width: 100, backgroundColor: 'red' }}
+              style={{ width: 100, backgroundColor: "red" }}
             />
           </HStack>
         </View>
@@ -75,5 +68,3 @@ export const DeleteModal = ({}: Props): JSX.Element => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({});

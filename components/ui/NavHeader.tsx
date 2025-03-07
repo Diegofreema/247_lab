@@ -1,8 +1,8 @@
-import { AntDesign } from '@expo/vector-icons';
-import { HStack } from '@gluestack-ui/themed';
-import { useRouter } from 'expo-router';
-import { StyleSheet, Pressable, View } from 'react-native';
-import { MyText } from './MyText';
+import { AntDesign } from "@expo/vector-icons";
+import { HStack } from "@gluestack-ui/themed";
+import { useRouter } from "expo-router";
+import { Pressable, View } from "react-native";
+import { MyText } from "./MyText";
 
 type Props = {
   title?: string;
@@ -28,7 +28,7 @@ export const NavHeader = ({ title }: Props): JSX.Element => {
       {title && (
         <MyText
           text={title}
-          style={{ color: 'black', fontSize: 20, fontFamily: 'PoppinsBold' }}
+          style={{ color: "black", fontSize: 20, fontFamily: "PoppinsBold" }}
         />
       )}
 
@@ -36,5 +36,3 @@ export const NavHeader = ({ title }: Props): JSX.Element => {
     </HStack>
   );
 };
-
-const styles = StyleSheet.create({});

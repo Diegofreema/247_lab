@@ -1,16 +1,16 @@
-import { StyleSheet, View, Text } from 'react-native';
+import { Text, View } from "react-native";
 
-import { useState } from 'react';
+import { useState } from "react";
 
-import Animated, { ZoomIn, ZoomOut } from 'react-native-reanimated';
-import { MyButton } from './MyButton';
+import Animated, { ZoomIn, ZoomOut } from "react-native-reanimated";
+import { MyButton } from "./MyButton";
 
 type Props = {
   refetch: any;
 };
 
-export const ErrorComponent = ({ refetch }: Props): JSX.Element => {
-  const [retry, setRetry] = useState(false);
+export const ErrorComponent = ({ refetch }: Props) => {
+  const [_, setRetry] = useState(false);
 
   const handleRetry = () => {
     refetch();
@@ -20,10 +20,10 @@ export const ErrorComponent = ({ refetch }: Props): JSX.Element => {
     <View
       style={{
         flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: 'white',
-        width: '100%',
+        alignItems: "center",
+        justifyContent: "center",
+        backgroundColor: "white",
+        width: "100%",
       }}
     >
       <Animated.View
@@ -31,24 +31,22 @@ export const ErrorComponent = ({ refetch }: Props): JSX.Element => {
         exiting={ZoomOut}
         style={{
           flex: 1,
-          alignItems: 'center',
-          justifyContent: 'center',
-          backgroundColor: 'transparent',
-          width: '100%',
+          alignItems: "center",
+          justifyContent: "center",
+          backgroundColor: "transparent",
+          width: "100%",
           gap: 10,
         }}
       >
         <Text
-          style={{ color: 'black', fontSize: 20, fontFamily: 'PoppinsBold' }}
+          style={{ color: "black", fontSize: 20, fontFamily: "PoppinsBold" }}
         >
           Something went wrong
         </Text>
-        <View style={{ backgroundColor: 'white', width: '60%' }}>
+        <View style={{ backgroundColor: "white", width: "60%" }}>
           <MyButton text="Retry" onPress={handleRetry} />
         </View>
       </Animated.View>
     </View>
   );
 };
-
-const styles = StyleSheet.create({});

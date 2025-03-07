@@ -1,20 +1,16 @@
-import { StyleSheet, Text, View } from 'react-native';
-import React from 'react';
-import { useUser } from '@/lib/zustand/useUser';
-import { Container } from '@/components/ui/Container';
-import { CardCase } from '@/components/ui/Card';
-import { ProfileImg } from '@/components/ui/profile/ProfileImg';
-import { NavHeader } from '@/components/ui/NavHeader';
-import { HStack } from '@gluestack-ui/themed';
-import { MyButton } from '@/components/ui/MyButton';
-import { ProfileBody } from '@/components/ui/profile/ProfileBody';
-import { router } from 'expo-router';
+import React from "react";
+import { Container } from "@/components/ui/Container";
+import { CardCase } from "@/components/ui/Card";
+import { ProfileImg } from "@/components/ui/profile/ProfileImg";
+import { NavHeader } from "@/components/ui/NavHeader";
+import { HStack } from "@gluestack-ui/themed";
+import { MyButton } from "@/components/ui/MyButton";
+import { ProfileBody } from "@/components/ui/profile/ProfileBody";
+import { router } from "expo-router";
 
-type Props = {};
-
-const profile = (props: Props) => {
+const profile = () => {
   const onPress = () => {
-    router.push('/edit-profile');
+    router.push("/edit-profile");
   };
   return (
     <Container>
@@ -23,7 +19,7 @@ const profile = (props: Props) => {
       <CardCase mt={20}>
         <HStack justifyContent="space-between" alignItems="center">
           <ProfileImg
-            containerStyle={{ flexDirection: 'row' }}
+            containerStyle={{ flexDirection: "row" }}
             imageStyle={{ width: 50, height: 50 }}
           />
           <MyButton
@@ -43,5 +39,3 @@ const profile = (props: Props) => {
 };
 
 export default profile;
-
-const styles = StyleSheet.create({});

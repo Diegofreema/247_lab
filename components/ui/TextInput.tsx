@@ -1,13 +1,12 @@
-import { colors } from '@/constants';
-import { Ionicons } from '@expo/vector-icons';
-import { HStack } from '@gluestack-ui/themed';
+import { Ionicons } from "@expo/vector-icons";
+import { HStack } from "@gluestack-ui/themed";
 import {
-  StyleSheet,
-  TextInputProps,
-  TextInput as TextInputComponent,
   StyleProp,
+  StyleSheet,
+  TextInput as TextInputComponent,
+  TextInputProps,
   TextStyle,
-} from 'react-native';
+} from "react-native";
 
 interface Props extends TextInputProps {
   style?: StyleProp<TextStyle>;
@@ -30,12 +29,12 @@ export const TextInput = (props: Props): JSX.Element => {
     >
       <TextInputComponent
         {...props}
-        style={{ fontFamily: 'Poppins', color: 'black', flex: 1 }}
-        placeholderTextColor={'black'}
+        style={{ fontFamily: "Poppins", color: "black", flex: 1 }}
+        placeholderTextColor={"black"}
       />
       {password && (
         <Ionicons
-          name={secured ? 'eye-off-outline' : 'eye-outline'}
+          name={secured ? "eye-off-outline" : "eye-outline"}
           onPress={toggleSecure}
           size={20}
           color="black"
@@ -48,11 +47,11 @@ export const TextInput = (props: Props): JSX.Element => {
 const styles = StyleSheet.create({
   input: {
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: "#ccc",
     padding: 5,
     paddingHorizontal: 15,
     height: 60,
-    fontFamily: 'Poppins',
+    fontFamily: "Poppins",
     borderRadius: 8,
   },
 });

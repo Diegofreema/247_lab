@@ -1,12 +1,12 @@
-import { StateType } from '@/lib/@types';
-import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { StateType } from "@/lib/@types";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 export const useCommunities = (state: string) => {
   const [communities, setCommunities] = useState<StateType[]>([
     {
-      key: '',
-      value: '',
+      key: "",
+      value: "",
     },
   ]);
   const [fetching, setFetching] = useState(false);
@@ -16,7 +16,7 @@ export const useCommunities = (state: string) => {
     const getCommunities = async () => {
       try {
         const { data } = await axios.get(
-          `https://247labapi.netpro.software/api.aspx?api=getcommunities&statename=${state}`
+          `https://247labapi.netpro.software/api.aspx?api=getcommunities&statename=${state}`,
         );
 
         if (data) {
@@ -29,16 +29,17 @@ export const useCommunities = (state: string) => {
         } else {
           setCommunities([
             {
-              key: '',
-              value: '',
+              key: "",
+              value: "",
             },
           ]);
         }
       } catch (error) {
+        console.log(error);
         setCommunities([
           {
-            key: '',
-            value: '',
+            key: "",
+            value: "",
           },
         ]);
       } finally {

@@ -1,10 +1,11 @@
-import { Results } from '@/lib/@types';
-import { Box } from '@gluestack-ui/themed';
-import { FlatList, StyleSheet } from 'react-native';
-import { SeeAll } from './SeeAll';
-import { useAuth } from '@/lib/zustand/auth';
-import { BottomEmpty } from './BottomEmpty';
-import { ResultItem } from '../ResultItem';
+import { Results } from "@/lib/@types";
+import { Box } from "@gluestack-ui/themed";
+import { FlatList } from "react-native";
+import { SeeAll } from "./SeeAll";
+import { useAuth } from "@/lib/zustand/auth";
+import { BottomEmpty } from "./BottomEmpty";
+import { ResultItem } from "../ResultItem";
+
 type Props = {
   results: Results[];
 };
@@ -33,5 +34,3 @@ export const BottomFlatList = ({ results }: Props): JSX.Element => {
     </Box>
   );
 };
-
-const styles = StyleSheet.create({});

@@ -1,15 +1,14 @@
-import React, { useEffect } from 'react';
-import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { Redirect, Tabs } from 'expo-router';
+import React, { useEffect } from "react";
+import FontAwesome from "@expo/vector-icons/FontAwesome";
+import { Redirect, Tabs } from "expo-router";
 
-import { StatusBar } from 'expo-status-bar';
-import { useAuth } from '@/lib/zustand/auth';
-import { colors } from '@/constants';
-import { TabBarButton } from '@/components/ui/tabbarButton';
-import { Feather } from 'lucide-react-native';
+import { StatusBar } from "expo-status-bar";
+import { useAuth } from "@/lib/zustand/auth";
+import { colors } from "@/constants";
+import { TabBarButton } from "@/components/ui/tabbarButton";
 
 function TabBarIcon(props: {
-  name: React.ComponentProps<typeof FontAwesome>['name'];
+  name: React.ComponentProps<typeof FontAwesome>["name"];
   color: string;
 }) {
   return <FontAwesome size={23} style={{ marginBottom: -3 }} {...props} />;
@@ -22,7 +21,7 @@ export default function TabLayout() {
   const { id, getUser } = useAuth();
   useEffect(() => {
     getUser();
-  }, []);
+  }, [getUser]);
   if (!id) {
     return <Redirect href="/" />;
   }
@@ -33,7 +32,7 @@ export default function TabLayout() {
         screenOptions={{
           headerShown: false,
           tabBarStyle: {
-            backgroundColor: 'white',
+            backgroundColor: "white",
             borderWidth: 0,
             borderTopWidth: 0,
             elevation: 0,
@@ -43,14 +42,14 @@ export default function TabLayout() {
           tabBarInactiveTintColor: colors.grey,
           tabBarLabelStyle: {
             fontSize: 12,
-            fontFamily: 'PoppinsMedium',
+            fontFamily: "PoppinsMedium",
           },
         }}
       >
         <Tabs.Screen
           name="home"
           options={{
-            title: 'Home',
+            title: "Home",
             tabBarButton: (props) => (
               <TabBarButton
                 {...props}
@@ -65,7 +64,7 @@ export default function TabLayout() {
         <Tabs.Screen
           name="labs"
           options={{
-            title: 'Book',
+            title: "Book",
             tabBarButton: (props) => (
               <TabBarButton
                 {...props}
@@ -81,7 +80,7 @@ export default function TabLayout() {
         <Tabs.Screen
           name="more"
           options={{
-            title: 'More',
+            title: "More",
             tabBarButton: (props) => (
               <TabBarButton
                 {...props}

@@ -1,25 +1,23 @@
-import { Pressable, StyleSheet, Text, View } from 'react-native';
-import React, { useMemo } from 'react';
-import { Container } from '@/components/ui/Container';
-import { Link, Redirect, useLocalSearchParams } from 'expo-router';
-import { useResults } from '@/lib/tanstack/queries';
-import { ErrorComponent } from '@/components/ui/Error';
-import { Loading } from '@/components/ui/Loading';
-import { ListItem } from '@rneui/themed';
-import { HStack, VStack } from '@gluestack-ui/themed';
-import Animated, { SlideInLeft } from 'react-native-reanimated';
-import { CardCase } from '@/components/ui/Card';
-import { Icon } from 'react-native-paper';
-import { MyText } from '@/components/ui/MyText';
-import { colors } from '@/constants';
-import { NavHeader } from '@/components/ui/NavHeader';
-import { MyButton } from '@/components/ui/MyButton';
-import { TestModal } from '@/components/modals/TestModal';
-import { useTest } from '@/lib/zustand/useTest';
+import { Pressable, Text, View } from "react-native";
+import React, { useMemo } from "react";
+import { Container } from "@/components/ui/Container";
+import { Redirect, useLocalSearchParams } from "expo-router";
+import { useResults } from "@/lib/tanstack/queries";
+import { ErrorComponent } from "@/components/ui/Error";
+import { Loading } from "@/components/ui/Loading";
+import { HStack, VStack } from "@gluestack-ui/themed";
+import Animated, { SlideInLeft } from "react-native-reanimated";
+import { CardCase } from "@/components/ui/Card";
+import { Icon } from "react-native-paper";
+import { MyText } from "@/components/ui/MyText";
+import { colors } from "@/constants";
+import { NavHeader } from "@/components/ui/NavHeader";
+import { TestModal } from "@/components/modals/TestModal";
+import { useTest } from "@/lib/zustand/useTest";
 
 type Props = {};
 
-const singleTest = (props: Props) => {
+const Page = (props: Props) => {
   const { ref } = useLocalSearchParams<{ ref: string }>();
   const {
     data: results,
@@ -33,10 +31,10 @@ const singleTest = (props: Props) => {
     if (results) {
       return results.find((result) => result.ref === ref);
     }
-  }, [ref]);
+  }, [ref, results]);
 
   if (!singleResult) {
-    return <Redirect href={'/home'} />;
+    return <Redirect href={"/home"} />;
   }
   const handleRefetch = () => {
     refetchResults();
@@ -52,7 +50,6 @@ const singleTest = (props: Props) => {
 
   const {
     Datex,
-    TestRef,
     branch,
     branchaddress,
     color,
@@ -71,12 +68,12 @@ const singleTest = (props: Props) => {
     ref: singleRef,
   });
 
-  const statusColor = status === 'Pending' ? 'orange' : 'green';
-  const formattedTest = test.split('-')[1] + `${test.split('-')[2] || ''}`;
+  const statusColor = status === "Pending" ? "orange" : "green";
+  const formattedTest = test.split("-")[1] + `${test.split("-")[2] || ""}`;
   const onShowImage = () => {
     onOpen();
   };
-  const resultIsAvailable = download === 'View Result';
+  const resultIsAvailable = download === "View Result";
   return (
     <>
       <TestModal
@@ -88,8 +85,8 @@ const singleTest = (props: Props) => {
           entering={SlideInLeft.delay(500).springify().damping(20)}
         >
           <CardCase>
-            <View style={{ position: 'absolute', top: 17, left: 10 }}>
-              <Icon source={'eyedropper'} size={20} color={colors.green} />
+            <View style={{ position: "absolute", top: 17, left: 10 }}>
+              <Icon source={"eyedropper"} size={20} color={colors.green} />
             </View>
 
             <VStack pl={20}>
@@ -97,12 +94,12 @@ const singleTest = (props: Props) => {
                 <HStack gap={5}>
                   <MyText
                     text={formattedTest}
-                    style={{ color: colors.black, fontFamily: 'PoppinsBold' }}
+                    style={{ color: colors.black, fontFamily: "PoppinsBold" }}
                   />
                 </HStack>
                 <MyText
                   text={Datex}
-                  style={{ color: colors.black, fontFamily: 'Poppins' }}
+                  style={{ color: colors.black, fontFamily: "Poppins" }}
                 />
               </HStack>
               <Item leftText="Branch" rightText={branch} />
@@ -111,12 +108,12 @@ const singleTest = (props: Props) => {
               <HStack justifyContent="space-between">
                 <HStack gap={5}>
                   <MyText
-                    text={'Status'}
-                    style={{ color: colors.black, fontFamily: 'PoppinsBold' }}
+                    text={"Status"}
+                    style={{ color: colors.black, fontFamily: "PoppinsBold" }}
                   />
                   <MyText
                     text={status}
-                    style={{ color: statusColor, fontFamily: 'PoppinsBold' }}
+                    style={{ color: statusColor, fontFamily: "PoppinsBold" }}
                   />
                 </HStack>
 
@@ -126,7 +123,7 @@ const singleTest = (props: Props) => {
                     style={({ pressed }) => ({ opacity: pressed ? 0.5 : 1 })}
                   >
                     <Text
-                      style={{ color: colors.green, fontFamily: 'Poppins' }}
+                      style={{ color: colors.green, fontFamily: "Poppins" }}
                     >
                       View Result
                     </Text>
@@ -141,7 +138,7 @@ const singleTest = (props: Props) => {
   );
 };
 
-export default singleTest;
+export default Page;
 
 const Item = ({
   leftText,
@@ -155,7 +152,7 @@ const Item = ({
       <HStack gap={5}>
         <MyText
           text={leftText}
-          style={{ color: colors.black, fontFamily: 'PoppinsBold' }}
+          style={{ color: colors.black, fontFamily: "PoppinsBold" }}
         />
       </HStack>
       {rightText && (
@@ -163,9 +160,9 @@ const Item = ({
           text={rightText}
           style={{
             color: colors.black,
-            fontFamily: 'Poppins',
-            flex: leftText === 'Address' ? 1 : undefined,
-            marginRight: leftText === 'Address' ? -5 : 0,
+            fontFamily: "Poppins",
+            flex: leftText === "Address" ? 1 : undefined,
+            marginRight: leftText === "Address" ? -5 : 0,
           }}
         />
       )}

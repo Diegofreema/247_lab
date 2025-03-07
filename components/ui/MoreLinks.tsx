@@ -1,18 +1,16 @@
-import { colors } from '@/constants';
-import { profileLinks } from '@/lib/data';
-import { VStack } from '@gluestack-ui/themed';
-import { Icon, ListItem } from '@rneui/themed';
-import { StyleSheet, View, Text } from 'react-native';
-import { MyText } from './MyText';
-import { useRouter } from 'expo-router';
-import { useUser } from '@/lib/zustand/useUser';
-import { useAuth } from '@/lib/zustand/auth';
-import { useDelete } from '@/lib/zustand/useOpenDelete';
-import { DeleteModal } from './Modals/deleteModal';
+import { colors } from "@/constants";
+import { profileLinks } from "@/lib/data";
+import { VStack } from "@gluestack-ui/themed";
+import { Icon, ListItem } from "@rneui/themed";
+import { StyleSheet } from "react-native";
+import { MyText } from "./MyText";
+import { Href, useRouter } from "expo-router";
+import { useUser } from "@/lib/zustand/useUser";
+import { useAuth } from "@/lib/zustand/auth";
+import { useDelete } from "@/lib/zustand/useOpenDelete";
+import { DeleteModal } from "./Modals/deleteModal";
 
-type Props = {};
-
-export const MoreLinks = ({}: Props): JSX.Element => {
+export const MoreLinks = () => {
   return (
     <VStack gap={10} mt={25}>
       {profileLinks.map((item, i) => (
@@ -42,20 +40,20 @@ const LinkItem = ({ item }: ItemType) => {
   const logout = () => {
     clearId();
     clearUser();
-    router.push('/');
+    router.push("/");
   };
   const onPress = () => {
     if (item?.link) {
-      router.push(item.link);
-    } else if (item.name === 'trash') {
+      router.push(item.link as Href<string | object>);
+    } else if (item.name === "trash") {
       onOpen();
-    } else if (item.name === 'log-out') {
+    } else if (item.name === "log-out") {
       logout();
     }
   };
 
   const color =
-    item.name === 'log-out' || item.name === 'trash'
+    item.name === "log-out" || item.name === "trash"
       ? colors.red
       : colors.green;
   return (
@@ -65,7 +63,7 @@ const LinkItem = ({ item }: ItemType) => {
         <ListItem.Title style={styles.text}>
           <MyText
             text={item.label}
-            style={{ color: color, fontFamily: 'PoppinsBold' }}
+            style={{ color: color, fontFamily: "PoppinsBold" }}
           />
         </ListItem.Title>
       </ListItem.Content>

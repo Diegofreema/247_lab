@@ -1,9 +1,9 @@
-import { UserType } from '@/lib/@types';
-import { Avatar, Box, HStack, VStack } from '@gluestack-ui/themed';
-import { StyleSheet, View, Text, Pressable } from 'react-native';
-import { MyText } from '../MyText';
-import { colors } from '@/constants';
-import { Link } from 'expo-router';
+import { UserType } from "@/lib/@types";
+import { Box, HStack, VStack } from "@gluestack-ui/themed";
+import { Pressable } from "react-native";
+import { MyText } from "../MyText";
+import { colors } from "@/constants";
+import { Link } from "expo-router";
 
 type Props = {
   user: UserType;
@@ -45,5 +45,3 @@ export const ProfileHeader = ({ user }: Props): JSX.Element => {
     </Link>
   );
 };
-
-const styles = StyleSheet.create({});

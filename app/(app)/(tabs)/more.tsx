@@ -1,8 +1,8 @@
-import React from 'react';
-import { Container } from '@/components/ui/Container';
-import { ProfileImg } from '@/components/ui/profile/ProfileImg';
-import { Center } from '@gluestack-ui/themed';
-import { MoreLinks } from '@/components/ui/MoreLinks';
+import React from "react";
+import { Container } from "@/components/ui/Container";
+import { ProfileImg } from "@/components/ui/profile/ProfileImg";
+import { Center } from "@gluestack-ui/themed";
+import { MoreLinks } from "@/components/ui/MoreLinks";
 
 type Props = {};
 

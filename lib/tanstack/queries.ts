@@ -1,5 +1,5 @@
-import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 import {
   Cat,
   LabBranch,
@@ -8,16 +8,16 @@ import {
   StateType,
   Test,
   UserType,
-} from '../@types';
-import { useAuth } from '../zustand/auth';
-import { useUser } from '../zustand/useUser';
+} from "../@types";
+import { useAuth } from "../zustand/auth";
+import { useUser } from "../zustand/useUser";
 
 const api = process.env.EXPO_PUBLIC_URL;
 
 export const useStates = () => {
   const getStates = async () => {
     const { data } = await axios.get(
-      `https://247labapi.netpro.software/api.aspx?api=getstates`
+      `https://247labapi.netpro.software/api.aspx?api=getstates`,
     );
 
     const formattedData = data.map((state: any) => ({
@@ -30,18 +30,18 @@ export const useStates = () => {
     return formattedData as StateType[];
   };
   return useQuery({
-    queryKey: ['states'],
+    queryKey: ["states"],
     queryFn: getStates,
   });
 };
 
 export const useCommunity = (state: string) => {
-  console.log('🚀 ~ useCommunity ~ state:', state);
+  console.log("🚀 ~ useCommunity ~ state:", state);
   const getCommunity = async () => {
     const { data } = await axios.get(
-      `https://247labapi.netpro.software/api.aspx?api=getcommunities&statename=${state}`
+      `https://247labapi.netpro.software/api.aspx?api=getcommunities&statename=${state}`,
     );
-    console.log('🚀 ~ useCommunity ~ data:', data);
+    console.log("🚀 ~ useCommunity ~ data:", data);
     const formattedData = data.map((community: any) => ({
       key: community?.commname,
       value: community?.commname,
@@ -50,7 +50,7 @@ export const useCommunity = (state: string) => {
     return formattedData as StateType[];
   };
   return useQuery({
-    queryKey: ['community', state],
+    queryKey: ["community", state],
     queryFn: getCommunity,
   });
 };
@@ -58,13 +58,13 @@ export const useCommunity = (state: string) => {
 export const useGetServices = () => {
   const getServices = async () => {
     const response = await axios.get(
-      'http://247laboratory.net/branches/getservices'
+      "http://247laboratory.net/branches/getservices",
     );
     let data = [];
-    if (Object.prototype.toString.call(response.data) === '[object Object]') {
+    if (Object.prototype.toString.call(response.data) === "[object Object]") {
       data.push(response.data);
     } else if (
-      Object.prototype.toString.call(response.data) === '[object Array]'
+      Object.prototype.toString.call(response.data) === "[object Array]"
     ) {
       data = [...response.data];
     }
@@ -72,7 +72,7 @@ export const useGetServices = () => {
     return data as ServiceType[];
   };
   return useQuery({
-    queryKey: ['services'],
+    queryKey: ["services"],
     queryFn: getServices,
   });
 };
@@ -82,7 +82,7 @@ export const useProfile = () => {
   const { getUser } = useUser();
   const getProfile = async () => {
     const { data } = await axios.get(
-      `${api}api=getpatientinfo&patientid=${id}`
+      `${api}api=getpatientinfo&patientid=${id}`,
     );
 
     getUser(data);
@@ -90,7 +90,7 @@ export const useProfile = () => {
   };
 
   return useQuery({
-    queryKey: ['profile'],
+    queryKey: ["profile"],
     queryFn: getProfile,
   });
 };
@@ -99,10 +99,10 @@ export const useLabs = (id: any) => {
   const getLabs = async () => {
     const response = await axios.get(`${api}api=getlab&patientid=${id}`);
     let data = [];
-    if (Object.prototype.toString.call(response.data) === '[object Object]') {
+    if (Object.prototype.toString.call(response.data) === "[object Object]") {
       data.push(response.data);
     } else if (
-      Object.prototype.toString.call(response.data) === '[object Array]'
+      Object.prototype.toString.call(response.data) === "[object Array]"
     ) {
       data = [...response.data];
     }
@@ -110,20 +110,20 @@ export const useLabs = (id: any) => {
   };
 
   return useQuery({
-    queryKey: ['labs', id],
+    queryKey: ["labs", id],
     queryFn: getLabs,
   });
 };
 export const useTestCat = (id: string) => {
   const getTestCatssd = async () => {
     const { data } = await axios.get(
-      `${api}api=gettestcategory&branchid=${id}`
+      `${api}api=gettestcategory&branchid=${id}`,
     );
     return data;
   };
 
   return useQuery<Cat[]>({
-    queryKey: ['testCats'],
+    queryKey: ["testCats"],
     queryFn: getTestCatssd,
   });
 };
@@ -131,13 +131,13 @@ export const useResults = () => {
   const { id } = useAuth();
   const getResults = async () => {
     const response = await axios.get(
-      `${api}api=getpasttestinfo&patientid=${id}`
+      `${api}api=getpasttestinfo&patientid=${id}`,
     );
     let data = [];
-    if (Object.prototype.toString.call(response.data) === '[object Object]') {
+    if (Object.prototype.toString.call(response.data) === "[object Object]") {
       data.push(response.data);
     } else if (
-      Object.prototype.toString.call(response.data) === '[object Array]'
+      Object.prototype.toString.call(response.data) === "[object Array]"
     ) {
       data = [...response.data];
     }
@@ -146,7 +146,7 @@ export const useResults = () => {
   };
 
   return useQuery<Results[]>({
-    queryKey: ['results'],
+    queryKey: ["results"],
     queryFn: getResults,
   });
 };
@@ -160,13 +160,13 @@ export const useTestFetch = (branchId: string, cat: string) => {
 
   const getTests = async () => {
     const response = await axios.get(
-      `${api}api=gettest&patientid=${id}&branchid=${branchId}&testcategoryid=${cat}`
+      `${api}api=gettest&patientid=${id}&branchid=${branchId}&testcategoryid=${cat}`,
     );
     let data = [];
-    if (Object.prototype.toString.call(response.data) === '[object Object]') {
+    if (Object.prototype.toString.call(response.data) === "[object Object]") {
       data.push(response.data);
     } else if (
-      Object.prototype.toString.call(response.data) === '[object Array]'
+      Object.prototype.toString.call(response.data) === "[object Array]"
     ) {
       data = [...response.data];
     }
@@ -175,7 +175,7 @@ export const useTestFetch = (branchId: string, cat: string) => {
   };
 
   return useQuery<Test[]>({
-    queryKey: ['tests', branchId, cat],
+    queryKey: ["tests", branchId, cat],
     queryFn: getTests,
   });
 };

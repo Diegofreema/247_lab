@@ -2,7 +2,7 @@
   "expo": {
     "name": "247 Lab",
     "slug": "247lab",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "com.app.247lab",
@@ -16,7 +16,7 @@
     "ios": {
       "supportsTablet": true,
 
-      "runtimeVersion": "1.0.0",
+      "runtimeVersion": "1.0.1",
       "bundleIdentifier": "com.diegodark.247lab"
     },
     "android": {
@@ -25,7 +25,7 @@
         "backgroundColor": "#ffffff"
       },
       "package": "eyrr.aasdd_trbac.r",
-      "runtimeVersion": "1.0.2"
+      "runtimeVersion": "1.0.3"
     },
     "web": {
       "bundler": "metro",

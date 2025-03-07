@@ -1,18 +1,18 @@
-import { FlatList } from 'react-native';
-import React from 'react';
-import { Container } from '@/components/ui/Container';
-import { NavHeader } from '@/components/ui/NavHeader';
-import { useLabs } from '@/lib/tanstack/queries';
-import { useAuth } from '@/lib/zustand/auth';
-import { ErrorComponent } from '@/components/ui/Error';
-import { Loading } from '@/components/ui/Loading';
-import { EmptyText } from '@/components/ui/EmptyText';
-import { useUser } from '@/lib/zustand/useUser';
-import { BranchItem } from '@/components/ui/home/Branches';
+import { FlatList } from "react-native";
+import React from "react";
+import { Container } from "@/components/ui/Container";
+import { NavHeader } from "@/components/ui/NavHeader";
+import { useLabs } from "@/lib/tanstack/queries";
+import { useAuth } from "@/lib/zustand/auth";
+import { ErrorComponent } from "@/components/ui/Error";
+import { Loading } from "@/components/ui/Loading";
+import { EmptyText } from "@/components/ui/EmptyText";
+import { useUser } from "@/lib/zustand/useUser";
+import { BranchItem } from "@/components/ui/home/Branches";
 
 type Props = {};
 
-const test = (props: Props) => {
+const Test = (props: Props) => {
   const { id } = useAuth();
   const { user } = useUser();
   const {
@@ -54,4 +54,4 @@ const test = (props: Props) => {
   );
 };
 
-export default test;
+export default Test;

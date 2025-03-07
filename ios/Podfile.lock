@@ -56,6 +56,8 @@ PODS:
     - ExpoModulesCore
   - ExpoSecureStore (13.0.2):
     - ExpoModulesCore
+  - ExpoStoreReview (7.0.2):
+    - ExpoModulesCore
   - ExpoSystemUI (3.0.7):
     - ExpoModulesCore
   - ExpoWebBrowser (13.0.3):
@@ -1424,6 +1426,7 @@ DEPENDENCIES:
   - ExpoModulesCore (from `../node_modules/expo-modules-core`)
   - ExpoQuickActions (from `../node_modules/expo-quick-actions/ios`)
   - ExpoSecureStore (from `../node_modules/expo-secure-store/ios`)
+  - ExpoStoreReview (from `../node_modules/expo-store-review/ios`)
   - ExpoSystemUI (from `../node_modules/expo-system-ui/ios`)
   - ExpoWebBrowser (from `../node_modules/expo-web-browser/ios`)
   - EXSplashScreen (from `../node_modules/expo-splash-screen/ios`)
@@ -1542,6 +1545,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/expo-quick-actions/ios"
   ExpoSecureStore:
     :path: "../node_modules/expo-secure-store/ios"
+  ExpoStoreReview:
+    :path: "../node_modules/expo-store-review/ios"
   ExpoSystemUI:
     :path: "../node_modules/expo-system-ui/ios"
   ExpoWebBrowser:
@@ -1696,6 +1701,7 @@ SPEC CHECKSUMS:
   ExpoModulesCore: 0e7d4d5c13169bbbd53496721d811adbcc5d600a
   ExpoQuickActions: 64fa5626dc168f892b38ec353218b8d10d1f02f7
   ExpoSecureStore: 060cebcb956b80ddae09821610ac1aa9e1ac74cd
+  ExpoStoreReview: 15f9a636b62ff00bb21cbe9a9fe22f0239da4481
   ExpoSystemUI: d4f065a016cae6721b324eb659cdee4d4cf0cb26
   ExpoWebBrowser: 7595ccac6938eb65b076385fd23d035db9ecdc8e
   EXSplashScreen: 17a656c08a0095be15b620c52e61dfdb665863d2
@@ -1776,4 +1782,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 16c773f6721aec8ae9f42d9aa09933759424a26f
 
-COCOAPODS: 1.15.2
+COCOAPODS: 1.16.2

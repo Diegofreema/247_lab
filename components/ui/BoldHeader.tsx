@@ -1,13 +1,7 @@
-import { colors } from '@/constants';
-import { VStack } from '@gluestack-ui/themed';
-import {
-  StyleSheet,
-  Text,
-  StyleProp,
-  TextStyle,
-  useWindowDimensions,
-} from 'react-native';
-import { RFValue } from 'react-native-responsive-fontsize';
+import { colors } from "@/constants";
+import { VStack } from "@gluestack-ui/themed";
+import { StyleProp, Text, TextStyle, useWindowDimensions } from "react-native";
+import { RFValue } from "react-native-responsive-fontsize";
 
 type Props = {
   text: string;
@@ -21,30 +15,28 @@ export const BoldHeader = ({ text, subText, style }: Props): JSX.Element => {
     <VStack gap={10}>
       <Text
         style={[
-          { fontFamily: 'PoppinsBold', fontSize: RFValue(23, height) },
+          { fontFamily: "PoppinsBold", fontSize: RFValue(23, height) },
           style,
         ]}
       >
-        {' '}
+        {" "}
         {text}
       </Text>
       {subText && (
         <Text
           style={[
             {
-              fontFamily: 'Poppins',
+              fontFamily: "Poppins",
               fontSize: RFValue(13, height),
               color: colors.grey,
             },
             style,
           ]}
         >
-          {' '}
+          {" "}
           {subText}
         </Text>
       )}
     </VStack>
   );
 };
-
-const styles = StyleSheet.create({});

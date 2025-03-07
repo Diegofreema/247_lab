@@ -1,14 +1,11 @@
-import { useUser } from '@/lib/zustand/useUser';
-import { StyleSheet, View, Text } from 'react-native';
-import { Loading } from '../Loading';
-import { ListItem } from '@rneui/themed';
-import { MyText } from '../MyText';
-import { colors } from '../../../constants';
-import { Box } from '@gluestack-ui/themed';
+import { useUser } from "@/lib/zustand/useUser";
+import { StyleSheet } from "react-native";
+import { ListItem } from "@rneui/themed";
+import { MyText } from "../MyText";
+import { colors } from "@/constants";
+import { Box } from "@gluestack-ui/themed";
 
-type Props = {};
-
-export const ProfileBody = ({}: Props): JSX.Element => {
+export const ProfileBody = (): JSX.Element => {
   const { user } = useUser();
 
   return (
@@ -23,16 +20,16 @@ export const ProfileBody = ({}: Props): JSX.Element => {
 };
 
 const styles = StyleSheet.create({
-  subTitle: { fontSize: 10, fontFamily: 'Poppins', color: colors.grey },
-  title: { fontSize: 15, fontFamily: 'PoppinsMedium', color: colors.black },
+  subTitle: { fontSize: 10, fontFamily: "Poppins", color: colors.grey },
+  title: { fontSize: 15, fontFamily: "PoppinsMedium", color: colors.black },
 });
 
 const ProfileItem = ({ subTitle, title }: { subTitle: string; title: any }) => {
-  const bottomDivider = subTitle === 'Address' ? false : true;
+  const bottomDivider = subTitle === "Address" ? false : true;
   return (
     <ListItem
       bottomDivider={bottomDivider}
-      containerStyle={{ backgroundColor: 'transparent' }}
+      containerStyle={{ backgroundColor: "transparent" }}
     >
       <ListItem.Content>
         <ListItem.Subtitle>
